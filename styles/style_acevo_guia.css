@@ -45,6 +45,22 @@ nav ul li a:hover {
     background-color: #ddd;
 }
 
+/* Remover background dos links Home e Guia */
+nav ul li a.no-background {
+    background-color: transparent;
+    padding: 0;
+}
+
+/* Estilo específico para o link Register */
+nav ul li a.register-link {
+    background-color: #000;
+    color: #fff;
+}
+
+nav ul li a.register-link:hover {
+    background-color: #333;
+}
+
 main {
     padding: 40px;
     text-align: center;
@@ -70,6 +86,7 @@ main {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    
 }
 
 
