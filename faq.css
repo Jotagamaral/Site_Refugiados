@@ -1,0 +1,95 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8fa;
+    color: #333;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #91d1e3;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size: 2rem;
+    color: #000;
+}
+
+.nav a, .language-btn, .user-btn {
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-left: 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.nav a:hover, .language-btn:hover, .user-btn:hover {
+    background: #f0f0f0;
+    cursor: pointer;
+}
+
+/* Sessão de Perguntas Frequentes */
+.faq {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 40px;
+    justify-content: center;
+}
+
+.faq-item {
+    background-color: #d1edf5;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+}
+
+.faq-item h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+/* Seção de Ajuda */
+.help-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f0f8fa;
+}
+
+.help-section img {
+    width: 100px;
+    margin-right: 20px;
+}
+
+.help-text p {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.help-text button {
+    background-color: #f0a500;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.help-text button:hover {
+    background-color: #e08e00;
+}
