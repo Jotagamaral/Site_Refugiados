@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './components/Header'; // Certifique-se de que está usando o export default corretamente
 
-function App() {
+import FAQ from './pages/FAQ';  // Importando a nova página FAQ
+import Home from './pages/Home'; // Página Home (caso tenha)
+import Guia from './pages/Guia'; // Página Guia (caso tenha)
+import FormPage from './pages/FormPage'; // Importar a página de formulário
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Funcionou!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/guia" element={<Guia />} />
+        <Route path="/form/:title" element={<FormPage />} /> {/* Rota dinâmica com parâmetro title */}
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
