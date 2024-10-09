@@ -20,9 +20,10 @@ const Header = () => {
         <Link to="/faq" className="bg-white px-4 py-2 rounded ml-3 font-bold text-gray-700 hover:bg-gray-200">
           FAQ
         </Link>
-        <button className="bg-white px-4 py-2 rounded ml-3 font-bold text-gray-700 hover:bg-gray-200">
+        <Link to="/auth" className="bg-white px-4 py-2 rounded ml-3 font-bold text-gray-700 hover:bg-gray-200">
           User
-        </button>
+        </Link>
+       
       </nav>
     </header>
   );
