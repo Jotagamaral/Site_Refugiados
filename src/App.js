@@ -7,6 +7,7 @@ import FAQ from './pages/FAQ';  // Importando a nova página FAQ
 import Home from './pages/Home'; // Página Home (caso tenha)
 import Guia from './pages/Guia'; // Página Guia (caso tenha)
 import FormPage from './pages/FormPage'; // Importar a página de formulário
+import AuthPage from './pages/auth/AuthPage';
 
 const App = () => {
   return (
@@ -16,7 +17,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/guia" element={<Guia />} />
-        <Route path="/form/:title" element={<FormPage />} /> {/* Rota dinâmica com parâmetro title */}
+        <Route path="/form/:title" element={<FormPage />} />
+        <Route path="/auth" element={<AuthPage />} />
       </Routes>
     </Router>
   );
