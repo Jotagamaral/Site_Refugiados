@@ -11,37 +11,40 @@ const RegisterForm = ({ toggleForm }) => {
       alert('As senhas não coincidem.');
       return;
     }
-    console.log('Register:', { name, email, password });
     alert('Funcionalidade de registro ainda vai ser implementada...');
   };
 
   return (
-    <div>
-      <h2 className="text-xl font-bold mb-4">Registro</h2>
+    <div className=''>
+      <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
+      <label className="block mb-2">Usuário:</label>
       <input
         type="text"
-        placeholder="Nome"
+        placeholder="Nome do usuário"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="block w-full mb-2 p-2 border rounded"
+        className="block w-full mb-4 p-2 border rounded"
       />
+      <label className="block mb-2">Email:</label>
       <input
         type="email"
-        placeholder="Email"
+        placeholder="email@example.com"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="block w-full mb-2 p-2 border rounded"
+        className="block w-full mb-4 p-2 border rounded"
       />
+      <label className="block mb-2">Senha:</label>
       <input
         type="password"
-        placeholder="Senha"
+        placeholder="********"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="block w-full mb-2 p-2 border rounded"
+        className="block w-full mb-4 p-2 border rounded"
       />
+      <label className="block mb-2">Confirmar senha:</label>
       <input
         type="password"
-        placeholder="Confirme sua senha"
+        placeholder="********"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
         className="block w-full mb-4 p-2 border rounded"
@@ -50,7 +53,7 @@ const RegisterForm = ({ toggleForm }) => {
         Registrar
       </button>
       <div className="text-center mt-4">
-        <a href="/" onClick={() => toggleForm('login')}>Já tem uma conta? Login</a>
+        <button  onClick={() => toggleForm('login')} className="text-sm text-gray-500">Já possui conta?</button>
       </div>
     </div>
   );

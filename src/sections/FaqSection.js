@@ -30,7 +30,7 @@ const FaqSection = () => {
   ];
 
   return (
-    <section className="flex flex-wrap gap-5 justify-center p-10">
+    <section className="grid grid-cols-1 sm:grid-cols-2 gap-5 px-10 py-5 justify-items-center">
       {faqs.map((faq, index) => (
         <FaqItem key={index} question={faq.question} answer={faq.answer} />
       ))}

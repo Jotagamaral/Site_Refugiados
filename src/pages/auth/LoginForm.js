@@ -5,34 +5,36 @@ const LoginForm = ({ toggleForm }) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    console.log('Login:', { email, password });
     alert('Funcionalidade de login ainda vai ser implementada...');
   };
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">Login</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center">Sign In</h2>
+      <label className="block mb-2">Usuário:</label>
       <input
-        type="email"
-        placeholder="Email"
+        type="text"
+        placeholder="Nome do usuário"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="block w-full mb-2 p-2 border rounded"
+        className="block w-full mb-4 p-2 border rounded"
       />
+      <label className="block mb-2">Senha:</label>
       <input
         type="password"
-        placeholder="Senha"
+        placeholder="********"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         className="block w-full mb-4 p-2 border rounded"
       />
       <button onClick={handleLogin} className="w-full bg-blue-500 text-white p-2 rounded">
-        Login
+        Sign In
       </button>
       <div className="text-center mt-4">
-        <a href="/" onClick={() => toggleForm('forgotPassword')}>Esqueceu sua senha?</a>
-        <br />
-        <a href="/" onClick={() => toggleForm('register')}>Ainda não tem uma conta? Registre-se</a>
+        <button  onClick={() => toggleForm('register')} className="text-sm text-gray-500">Não possui conta?</button>
+      </div>
+      <div className="text-center mt-4">
+        <button  onClick={() => toggleForm('forgotPassword')} className="text-sm text-gray-500">Esqueceu a senha?</button>
       </div>
     </div>
   );

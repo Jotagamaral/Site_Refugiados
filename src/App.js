@@ -8,6 +8,7 @@ import Home from './pages/Home'; // Página Home (caso tenha)
 import Guia from './pages/Guia'; // Página Guia (caso tenha)
 import FormPage from './pages/FormPage'; // Importar a página de formulário
 import AuthPage from './pages/auth/AuthPage';
+import Dashboard from './pages/Dashboard';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/guia" element={<Guia />} />
         <Route path="/form/:title" element={<FormPage />} />
         <Route path="/auth" element={<AuthPage />} />
+        <Route path="/usuario" element={<Dashboard />} />
       </Routes>
     </Router>
   );

@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header className="bg-blue-300 p-5 flex justify-between items-center">
       <div className="logo">
-        <h1 className="text-2xl text-black">Aurora Refúgio</h1>
+        <h1 className="text-4xl text-black font-bold pl-5">Aurora Refúgio</h1>
       </div>
       <nav className="nav">
         <button className="bg-white px-4 py-2 rounded ml-3 font-bold text-gray-700 hover:bg-gray-200">

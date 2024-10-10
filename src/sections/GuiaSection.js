@@ -4,7 +4,7 @@ import ContentGrid from '../components/ContentGrid';
 
 const GuiaSection = () => {
   return (
-    <section className="my-10">
+    <section className="pt-10 bg-gray-200">
       <h2 className="text-3xl font-semibold text-gray-800 text-center">Guia de Conteúdo</h2>
       <ContentGrid />
     </section>

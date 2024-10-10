@@ -36,7 +36,7 @@ const ContentGrid = () => {
   ];
 
   return (
-    <section className="p-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <section className="max-w-screen-xl mx-auto p-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {contentItems.map((item, index) => (
         <ContentCard key={index} imgSrc={item.imgSrc} title={item.title} description={item.description} />
       ))}

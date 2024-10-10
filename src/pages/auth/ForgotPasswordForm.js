@@ -23,7 +23,7 @@ const ForgotPasswordForm = ({ toggleForm }) => {
         Enviar
       </button>
       <div className="text-center mt-4">
-        <a href="/" onClick={() => toggleForm('login')}>Voltar para o Login</a>
+        <button onClick={() => toggleForm('login')}>Voltar para o Login</button>
       </div>
     </div>
   );
