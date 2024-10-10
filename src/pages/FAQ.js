@@ -1,5 +1,5 @@
 import React from 'react';
-import FaqSection from '../sections/FaqSection'; // Importando a seção FAQ
+import FaqSection from '../sections/FaqSection';
 import HelpSection from '../sections/HelpSection';
 
 const FAQ = () => {
