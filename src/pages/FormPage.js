@@ -1,104 +1,8 @@
-/*import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { supabase } from '../supabaseCliente'; // Importa o supabaseClient
-
-const FormPage = () => {
-  const { title } = useParams(); // Obter o título da URL
-  const [questions, setQuestions] = useState([]); // Armazena as questões do banco de dados
-  const [currentQuestion, setCurrentQuestion] = useState(0); // Controla a pergunta atual
-  const [selectedAnswer, setSelectedAnswer] = useState(null); // Armazena a resposta selecionada
-  const [isCorrect, setIsCorrect] = useState(false); // Indica se a resposta está correta
-  const [completed, setCompleted] = useState(false); // Verifica se todas as perguntas foram respondidas
-
-  // Função para buscar as perguntas do Supabase
-  const fetchQuestions = async () => {
-    const { data, error } = await supabase.from('questions').select('*');
-    if (error) {
-      console.error('Erro ao buscar as perguntas:', error);
-    } else {
-      setQuestions(data);
-    }
-  };
-
-  useEffect(() => {
-    fetchQuestions(); // Buscar as perguntas ao carregar o componente
-  }, []);
-
-  const handleAnswerSelect = (option) => {
-    setSelectedAnswer(option); // Define a resposta selecionada
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (selectedAnswer === questions[currentQuestion].answer) {
-      setIsCorrect(true);
-      if (currentQuestion === questions.length - 1) {
-        setCompleted(true); // Marca o questionário como completo se estiver na última pergunta
-      } else {
-        setTimeout(() => {
-          setCurrentQuestion(currentQuestion + 1); // Avança para a próxima pergunta
-          setSelectedAnswer(null); // Limpa a resposta selecionada
-          setIsCorrect(false); // Reseta o estado de resposta correta
-        }, 1000); // Aguarda 1 segundo antes de avançar
-      }
-    } else {
-      setIsCorrect(false);
-      alert('Resposta incorreta. Tente novamente.');
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-blue-50 p-10">
-      <h2 className="text-3xl font-semibold text-center text-gray-800">{title}</h2> {/* Exibe o título do guia */ /*}
-      {questions.length === 0 ? (
-        <p>Carregando perguntas...</p> // Exibe um indicador de carregamento enquanto as perguntas estão sendo buscadas
-      ) : !completed ? (
-        <form onSubmit={handleSubmit} className="mt-10 max-w-lg mx-auto bg-white p-5 rounded-lg shadow-lg">
-          <div className="mb-4">
-            <label className="block text-lg font-semibold mb-4">
-              {questions[currentQuestion].question} {/* Exibe a pergunta atual */ /*}
-            </label>
-            {/* Opções de resposta */ /*}
-            {questions[currentQuestion].options.map((option, index) => (
-              <div key={index} className="mb-2">
-                <input
-                  type="radio"
-                  id={`option-${index}`}
-                  name="question"
-                  value={option}
-                  checked={selectedAnswer === option}
-                  onChange={() => handleAnswerSelect(option)} // Define a resposta selecionada
-                  className="mr-2"
-                />
-                <label htmlFor={`option-${index}`} className="text-lg">
-                  {option}
-                </label>
-              </div>
-            ))}
-          </div>
-          <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-            Responder
-          </button>
-          {isCorrect && (
-            <p className="text-green-600 mt-2">Resposta correta! Avançando para a próxima pergunta...</p>
-          )}
-        </form>
-      ) : (
-        <div className="text-center mt-10">
-          <h3 className="text-2xl font-semibold">Parabéns! Você completou o questionário.</h3>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default FormPage;*/
-
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+//import { useParams } from 'react-router-dom';
 
 const FormPage = () => {
-  const { title } = useParams(); // Obter o título da URL
+  // const { title } = useParams(); // Obter o título da URL
   const [currentQuestion, setCurrentQuestion] = useState(0); // Controla a pergunta atual
   const [selectedAnswer, setSelectedAnswer] = useState(null); // Armazena a resposta selecionada
   const [isCorrect, setIsCorrect] = useState(false); // Indica se a resposta está correta
@@ -123,22 +27,22 @@ const FormPage = () => {
     },
   ];
 
+  // Função chamada ao clicar na resposta
   const handleAnswerSelect = (option) => {
     setSelectedAnswer(option); // Define a resposta selecionada
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (selectedAnswer === questions[currentQuestion].answer) {
+    if (option === questions[currentQuestion].answer) {
       setIsCorrect(true);
+
+      // Avança para a próxima pergunta
       if (currentQuestion === questions.length - 1) {
-        setCompleted(true); // Marca o questionário como completo se estiver na última pergunta
+        setCompleted(true); // Marca como concluído se for a última pergunta
       } else {
         setTimeout(() => {
-          setCurrentQuestion(currentQuestion + 1); // Avança para a próxima pergunta
+          setCurrentQuestion(currentQuestion + 1); // Avança para a próxima pergunta após 1 segundo
           setSelectedAnswer(null); // Limpa a resposta selecionada
           setIsCorrect(false); // Reseta o estado de resposta correta
-        }, 1000); // Aguarda 1 segundo antes de avançar
+        }, 1000);
       }
     } else {
       setIsCorrect(false);
@@ -147,46 +51,36 @@ const FormPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-10">
+    <div className="min-h-screen bg-gray-100">
       <div className="flex">
         {/* Conteúdo principal */}
-        <div className="w-3/4 p-5">
-          <h2 className="text-2xl font-bold mb-6">{title}</h2>
+        <div className="w-4/5 p-10">
+          <div className="flex items-center mb-6">
+            {/* Imagem da mascote */}
+            <img src={`${process.env.PUBLIC_URL}/assets/aurora.png`} alt="Aurora Mascote" className="size-44 -scale-x-100 h-auto" />
+            <h2 className="text-2xl font-bold">{`Pergunta ${currentQuestion + 1}: ${questions[currentQuestion].question}`}</h2>
+          </div>
           {!completed ? (
-            <form onSubmit={handleSubmit} className="bg-white p-5 rounded-lg shadow-lg">
-              <h3 className="text-lg font-semibold mb-4">{questions[currentQuestion].question}</h3>
-              <div className="flex justify-around gap-5">
+            <div className=" p-5">
+              <div className="flex justify-around gap-10">
                 {/* Opções de resposta como na imagem */}
                 {questions[currentQuestion].options.map((option, index) => (
                   <div key={index} className="w-1/3">
                     <label
-                      className={`block p-4 h-52 bg-gray-200 rounded-lg cursor-pointer text-center hover:bg-blue-300 ${
+                      className={`block p-4 h-52 bg-white rounded-lg cursor-pointer text-center hover:bg-blue-300 ${
                         selectedAnswer === option ? 'bg-blue-300' : ''
                       }`}
+                      onClick={() => handleAnswerSelect(option)} // Chama a função quando a opção é clicada
                     >
-                      <input
-                        type="radio"
-                        name="question"
-                        value={option}
-                        checked={selectedAnswer === option}
-                        onChange={() => handleAnswerSelect(option)}
-                        className="hidden"
-                      />
                       {option}
                     </label>
                   </div>
                 ))}
               </div>
-              <button
-                type="submit"
-                className="mt-6 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-              >
-                Responder
-              </button>
               {isCorrect && (
                 <p className="text-green-600 mt-2">Resposta correta! Avançando para a próxima pergunta...</p>
               )}
-            </form>
+            </div>
           ) : (
             <div className="text-center mt-10">
               <h3 className="text-2xl font-semibold pb-5">Parabéns! Você completou o questionário.</h3>
@@ -207,14 +101,14 @@ const FormPage = () => {
         </div>
 
         {/* Menu lateral */}
-        <div className="w-1/4 px-5 pt-20">
-          <div className="bg-white p-4 rounded-lg shadow-lg">
-            <ul>
-              <li className="mb-2 font-bold">Tema 1</li>
-              <li className="mb-2 text-gray-600">Tema 2</li>
-              <li className="mb-2 text-gray-600">Tema 3</li>
-              <li className="mb-2 text-gray-600">Tema 4</li>
-              <li className="text-gray-600">Finalização</li>
+        <div className="w-1/5 h-screen">
+          <div className="bg-white p-4 h-full">
+            <ul className="flex flex-col items-center h-full space-y-10">
+                <li className="font-bold">Tema 1</li>
+                <li className="text-gray-600">Tema 2</li>
+                <li className="text-gray-600">Tema 3</li>
+                <li className="text-gray-600">Tema 4</li>
+                <li className="text-gray-600">Finalização</li>
             </ul>
           </div>
         </div>
