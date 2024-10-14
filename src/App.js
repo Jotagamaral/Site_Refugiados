@@ -11,7 +11,6 @@ import Guia from './pages/Guia'; // Página Guia (caso tenha)
 import FormPage from './pages/FormPage'; // Importar a página de formulário
 import AuthPage from './pages/auth/AuthPage';
 import Dashboard from './pages/Dashboard';
-import Profile from './pages/Profile'
 
 
 export default function App() {

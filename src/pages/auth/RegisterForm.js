@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { supabase } from "../../supabaseCliente";
 import { redirect } from 'react-router-dom';
+import { NavigatorLockAcquireTimeoutError } from '@supabase/supabase-js';
 
 const RegisterForm = ({ toggleForm }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [location, setLocation] = useState('');
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
@@ -14,11 +16,11 @@ const RegisterForm = ({ toggleForm }) => {
       return;
     }
     try{
-      const { error } = await supabase.schema("aurora_refugio").from('users').insert({name: name,  email: email, password: password});
+      const { error } = await supabase.schema("aurora_refugio").from('users').insert({name: name,  email: email, password: password, location: location});
 
       if (error) throw error
       else{
-        window.location.replace('/')
+        window.location.replace('/usuario')
       }
     } catch (error) {
       alert(error.error_description || error.message);
@@ -42,6 +44,14 @@ const RegisterForm = ({ toggleForm }) => {
         placeholder="email@example.com"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        className="block w-full mb-4 p-2 border rounded"
+      />
+      <label className="block mb-2">Localização:</label>
+      <input
+        type="text"
+        placeholder="Brasília"
+        value={location}
+        onChange={(e) => setLocation(e.target.value)}
         className="block w-full mb-4 p-2 border rounded"
       />
       <label className="block mb-2">Senha:</label>
