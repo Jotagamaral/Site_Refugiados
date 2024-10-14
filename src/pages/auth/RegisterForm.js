@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { supabase } from "../../supabaseCliente";
+import { redirect } from 'react-router-dom';
 
 const RegisterForm = ({ toggleForm }) => {
   const [name, setName] = useState('');
@@ -6,12 +8,21 @@ const RegisterForm = ({ toggleForm }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (password !== confirmPassword) {
       alert('As senhas não coincidem.');
       return;
     }
-    alert('Funcionalidade de registro ainda vai ser implementada...');
+    try{
+      const { error } = await supabase.schema("aurora_refugio").from('users').insert({name: name,  email: email, password: password});
+
+      if (error) throw error
+      else{
+        window.location.replace('/')
+      }
+    } catch (error) {
+      alert(error.error_description || error.message);
+    }
   };
 
   return (
