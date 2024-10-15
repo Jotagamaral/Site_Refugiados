@@ -1,5 +1,5 @@
 import './index.css'
-import { useState, useEffect, Profiler } from 'react'
+import { useState, useEffect } from 'react'
 import { supabase } from "./supabaseCliente";
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -30,19 +30,20 @@ export default function App() {
     return () => subscription.unsubscribe()
   }, [])
 
+
   if (!session) {
     return ( 
-            <Router>
-              <Header />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/faq" element={<FAQ />} />
-                  <Route path="/guia" element={<Guia />} />
-                  <Route path="/form/:title" element={<FormPage />} />
-                  <Route path="/auth" element={<AuthPage />} />
-                  <Route path="/usuario" element={<Dashboard />} />
-              </Routes>
-            </Router>
+      <Router>
+      <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/guia" element={<Guia />} />
+          <Route path="/form/:title" element={<FormPage />} />
+          <Route path="/usuario" element={<Dashboard />} />
+          <Route path="/auth" element={<AuthPage />} />
+      </Routes>
+    </Router>
     )
   }
   else {
@@ -53,8 +54,8 @@ export default function App() {
                   <Route path="/faq" element={<FAQ />} />
                   <Route path="/guia" element={<Guia />} />
                   <Route path="/form/:title" element={<FormPage />} />
-                  <Route path="/auth" element={<AuthPage />} />
                   <Route path="/usuario" element={<Dashboard />} />
+                  <Route path="/auth" element={<AuthPage />} />
               </Routes>
             </Router>
             )

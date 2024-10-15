@@ -1,5 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { supabase } from '../supabaseCliente';
+
+const handleLogOut = async () => {
+
+  try{
+    const { error } = await supabase.auth.signOut()
+
+    if(error) throw error;
+    else{
+      alert('Usuario deslogado!');
+    }
+  } catch(error) {
+    alert('Mensagem de erro' + (error.error_description || error.message));
+  }
+};
 
 const Header = () => {
   return (
@@ -21,12 +36,12 @@ const Header = () => {
           FAQ
         </Link>
         <Link to="/auth" className="bg-white px-4 py-2 rounded ml-3 font-bold text-gray-700 hover:bg-gray-200">
-          Log In
+          Log in
         </Link>
         <Link to="/usuario" className="bg-white px-4 py-2 rounded ml-3 font-bold text-gray-700 hover:bg-gray-200">
           Perfil
         </Link>
-        <Link to="/auth" className="bg-white px-4 py-2 rounded ml-3 font-bold text-gray-700 hover:bg-gray-200">
+        <Link onClick={handleLogOut} className="bg-white px-4 py-2 rounded ml-3 font-bold text-gray-700 hover:bg-gray-200">
           Log Out
         </Link>
        

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { supabase } from "../../supabaseCliente";
-import { useNavigate } from 'react-router-dom';
-import { NavigatorLockAcquireTimeoutError } from '@supabase/supabase-js';
 
 const RegisterForm = ({ toggleForm }) => {
   const [name, setName] = useState('');
@@ -9,8 +7,6 @@ const RegisterForm = ({ toggleForm }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [location, setLocation] = useState('');
-
-  const navigate = useNavigate();
 
   const handleRegister = async () => {
 
@@ -33,19 +29,22 @@ const RegisterForm = ({ toggleForm }) => {
           const { error: insertError } = await supabase
           .schema('aurora_refugio')
           .from('users')
-            .insert({
-              auth_user_id: userId,
-              name: name,
-              email: email,
-              location: location
-            });
-
+          .insert({
+            auth_user_id: userId,
+            name: name,
+            email: email,
+            location: location
+          });
+          
+          
           if (insertError) throw insertError;
-          console.log('Usuário registrado com sucesso!');
+          else {
+            toggleForm('login');
+            console.log('Usuário registrado com sucesso!');
+          }
         }
-    
       } catch (error) {
-        alert('Mensagem de erro', error.message);
+        alert('Mensagem de erro: ' + error.message);
       }
   };
 

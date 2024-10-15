@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { supabase } from "../../supabaseCliente";
 import { useNavigate } from 'react-router-dom';
-import { NavigatorLockAcquireTimeoutError } from '@supabase/supabase-js';
 
 
 const LoginForm = ({ toggleForm }) => {
@@ -19,11 +18,18 @@ const LoginForm = ({ toggleForm }) => {
       })
 
       console.log(data)
+      if (error) throw error;
+      else{
+        alert(data.session);
+        console.log(data.session);
+      }
       
 
     } catch (error) {
       alert(error.error_description || error.message);
     }
+    console.log('Usuário Logado com sucesso!');
+    navigate('/');
   };
   return (
     <div>
