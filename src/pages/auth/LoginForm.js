@@ -1,22 +1,39 @@
 import React, { useState } from 'react';
+import { supabase } from "../../supabaseCliente";
+import { useNavigate } from 'react-router-dom';
+import { NavigatorLockAcquireTimeoutError } from '@supabase/supabase-js';
+
 
 const LoginForm = ({ toggleForm }) => {
-  const [email, setEmail] = useState('');
+  const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
+  
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
-    alert('Funcionalidade de login ainda vai ser implementada...');
+  const handleLogin = async () => {
+    try{
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: usuario,
+        password: password,
+      })
+
+      console.log(data)
+      
+
+    } catch (error) {
+      alert(error.error_description || error.message);
+    }
   };
-
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4 text-center">Sign In</h2>
       <label className="block mb-2">Usuário:</label>
       <input
         type="text"
-        placeholder="Nome do usuário"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Digite seu e-mail"
+        value={usuario}
+        onChange={(e) => setUsuario(e.target.value)}
         className="block w-full mb-4 p-2 border rounded"
       />
       <label className="block mb-2">Senha:</label>

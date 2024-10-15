@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { supabase } from '../supabaseCliente';
 //import { useParams } from 'react-router-dom';
 
 const FormPage = () => {
@@ -27,6 +28,18 @@ const FormPage = () => {
     },
   ];
 
+  const fechData = async () => {
+    const {data: questoes} = await supabase
+    .schema('aurora_refugio')
+    .from('choices')
+    .select('question_id, choice_text')
+    .eq('choice_text', '1')
+
+    console.log(questoes)
+
+  }
+
+  fechData()
   // Função chamada ao clicar na resposta
   const handleAnswerSelect = (option) => {
     setSelectedAnswer(option); // Define a resposta selecionada

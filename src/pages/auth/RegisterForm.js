@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { supabase } from "../../supabaseCliente";
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { NavigatorLockAcquireTimeoutError } from '@supabase/supabase-js';
 
 const RegisterForm = ({ toggleForm }) => {
@@ -10,21 +10,47 @@ const RegisterForm = ({ toggleForm }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [location, setLocation] = useState('');
 
-  const handleRegister = async () => {
-    if (password !== confirmPassword) {
-      alert('As senhas não coincidem.');
-      return;
-    }
-    try{
-      const { error } = await supabase.schema("aurora_refugio").from('users').insert({name: name,  email: email, password: password, location: location});
+  const navigate = useNavigate();
 
-      if (error) throw error
-      else{
-        window.location.replace('/usuario')
+  const handleRegister = async () => {
+
+      if (password !== confirmPassword) {
+        alert('As senhas não coincidem.');
+        return;
       }
-    } catch (error) {
-      alert(error.error_description || error.message);
-    }
+    
+      try {
+        const { data, error } = await supabase.auth.signUp({
+          email: email,
+          password: password
+        });
+    
+        if (error) throw error;
+    
+        const userId = data.user?.id;
+
+        if (userId) {
+
+          // 3. Inserir dados no schema personalizado `aurora_refugio.users`
+          const { error: insertError } = await supabase
+          .schema('aurora_refugio')
+          .from('users')
+            .insert({
+              auth_user_id: userId,  // Relaciona com o ID gerado no schema auth
+              name: name,
+              email: email,
+              location: location
+            });
+
+          if (insertError) throw insertError;
+    
+          // Usuário registrado com sucesso nos dois schemas
+          console.log('Usuário registrado com sucesso!');
+        }
+    
+      } catch (error) {
+        alert('Mensagem de erro', error.message);
+      }
   };
 
   return (
