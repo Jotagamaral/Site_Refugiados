@@ -1,44 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ContentCard from './ContentCard';
+import { supabase } from '../supabaseCliente';
 
 const ContentGrid = () => {
-  const contentItems = [
-    {
-      imgSrc: 'placeholder.png',
-      title: 'Cartão mobilidade',
-      description: 'Texto explicativo sobre o Cartão mobilidade. Informações e principais pontos sobre o assunto.'
-    },
-    {
-      imgSrc: 'placeholder.png',
-      title: 'Documentos de visto',
-      description: 'Texto explicativo sobre Documentos de visto. Informações e principais pontos sobre o assunto.'
-    },
-    {
-      imgSrc: 'placeholder.png',
-      title: 'Title',
-      description: 'Texto explicativo. Adicione informações, anedotas, ou até mesmo uma história curta.'
-    },
-    {
-      imgSrc: 'placeholder.png',
-      title: 'Title',
-      description: 'Texto explicativo. Adicione informações, anedotas, ou até mesmo uma história curta.'
-    },
-    {
-      imgSrc: 'placeholder.png',
-      title: 'Title',
-      description: 'Texto explicativo. Adicione informações, anedotas, ou até mesmo uma história curta.'
-    },
-    {
-      imgSrc: 'placeholder.png',
-      title: 'Title',
-      description: 'Texto explicativo. Adicione informações, anedotas, ou até mesmo uma história curta.'
-    }
-  ];
+  const [contentItems, setContentItems] = useState([]);
+  
+  const fechData = async () => {
 
+    try {
+      const { data: items, error } = await supabase
+      .schema('aurora_refugio')
+      .from('guides_manuals')
+      .select('*')
+
+      if (error) throw error
+
+      setContentItems(items)
+
+      
+    } catch (error) {
+      console.log("Erro na busca de dados", error.message)
+    }
+  };
+
+  useEffect(() => {
+    fechData()
+  }, []);
+  
+  //console.log(contentItems)
   return (
     <section className="max-w-screen-xl mx-auto p-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {contentItems.map((item, index) => (
-        <ContentCard key={index} imgSrc={item.imgSrc} title={item.title} description={item.description} />
+        <ContentCard 
+        key={index}
+        id= {item.guide_id}
+        imgSrc={item.imgSrc|| 'placeholder.png'} 
+        title={item.title} 
+        description={item.content} />
       ))}
     </section>
   );

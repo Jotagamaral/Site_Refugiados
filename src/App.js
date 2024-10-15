@@ -38,7 +38,7 @@ export default function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/faq" element={<FAQ />} />
                   <Route path="/guia" element={<Guia />} />
-                  <Route path="/form/:title" element={<FormPage />} />
+                  <Route path="/form/:id/:title" element={<FormPage />} />
                   <Route path="/auth" element={<AuthPage />} />
                   <Route path="/usuario" element={<Dashboard />} />
               </Routes>
@@ -52,7 +52,7 @@ export default function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/faq" element={<FAQ />} />
                   <Route path="/guia" element={<Guia />} />
-                  <Route path="/form/:title" element={<FormPage />} />
+                  <Route path="/form/:id/:title" element={<FormPage />} />
                   <Route path="/auth" element={<AuthPage />} />
                   <Route path="/usuario" element={<Dashboard />} />
               </Routes>
