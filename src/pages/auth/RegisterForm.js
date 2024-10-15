@@ -30,21 +30,17 @@ const RegisterForm = ({ toggleForm }) => {
         const userId = data.user?.id;
 
         if (userId) {
-
-          // 3. Inserir dados no schema personalizado `aurora_refugio.users`
           const { error: insertError } = await supabase
           .schema('aurora_refugio')
           .from('users')
             .insert({
-              auth_user_id: userId,  // Relaciona com o ID gerado no schema auth
+              auth_user_id: userId,
               name: name,
               email: email,
               location: location
             });
 
           if (insertError) throw insertError;
-    
-          // Usuário registrado com sucesso nos dois schemas
           console.log('Usuário registrado com sucesso!');
         }
     
