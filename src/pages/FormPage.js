@@ -13,12 +13,13 @@ const FormPage = () => {
 
   useEffect(() => {
     const fechData = async () => {
+
       try {
         // Buscar perguntas
         const { data: questoes, error: questoesError } = await supabase
           .schema('aurora_refugio')
           .from('questions')
-          .select('question_number, correct_choice_id, question_text')
+          .select('question_id, correct_choice_id, question_text')
           .eq('guide_id', id);
 
         if (questoesError) {
@@ -26,23 +27,60 @@ const FormPage = () => {
           return;
         }
 
-        // Buscar alternativas
-        const { data: alternativas, error: alternativasError } = await supabase
-          .schema('aurora_refugio')
-          .from('choices')
-          .select('choice_id, question_number, choice_number, choice_text')
-          .eq('guide_id', id);
-
-        if (alternativasError) {
-          console.error('Erro ao buscar alternativas:', alternativasError);
-          return;
+        /*
+        EXEMPLO DA REQUISIÇÃO QUESTOES
+        questoes = {
+        correct_choice_id: 1,
+        question_id: 1,
+        question_text: "Qual dos seguintes é um meio comum de transporte público em áreas urbanas?
         }
+        */
 
-        // Criar questionário associando perguntas e alternativas
+
+        // Buscar alternativas
+        const todasAlternativas = await Promise.all(
+
+          questoes.map(
+
+            async (element) => {
+
+              const {data: alternativas, error: alternativasError} = await supabase
+              .schema('aurora_refugio')
+              .from('choices')
+              .select('choice_id, choice_text')
+              .eq('question_id', element.question_id);
+
+              if (alternativasError) {
+                console.error('Erro ao buscar alternativas', alternativasError)
+                return []
+              }
+
+              return {
+                question_id:element.question_id,
+                alternativas: alternativas.map((alt) => ({
+                  choice_id: alt.choice_id,
+                  choice_text: alt.choice_text
+                })),
+              };
+            })
+          )
+
+          /*
+          EXEMPLO DA REQUISIÇÃO ALTERNATIVAS
+          todasAlternativas = {
+          alternativas [{choice_id: 3, choice_text: 'Avião'}, {choice_id: 2, choice_text: 'Carro'} ...],
+          question_id: 1,
+          }
+          */
+
+        // Criar questionário
         const questions = questoes.map((questao) => {
-          const alternativasFiltradas = alternativas.filter(
-            (alt) => alt.question_number === questao.question_number
-          );
+
+          const alternativasFiltradas = todasAlternativas.find(
+            (alt) => alt.question_id === questao.question_id
+          )?.alternativas || [];
+
+
           return {
             question: questao.question_text,
             options: alternativasFiltradas,
@@ -53,6 +91,7 @@ const FormPage = () => {
         });
 
         setQuestionario(questions);
+
       } catch (error) {
         console.error('Erro ao buscar dados', error);
       }

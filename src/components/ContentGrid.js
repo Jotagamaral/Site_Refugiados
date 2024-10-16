@@ -33,7 +33,7 @@ const ContentGrid = () => {
       {contentItems.map((item, index) => (
         <ContentCard 
         key={index}
-        id= {item.guide_id}
+        guide_id= {item.guide_id}
         imgSrc={item.imgSrc|| 'placeholder.png'} 
         title={item.title} 
         description={item.content} />
