@@ -1,6 +1,6 @@
 import React from 'react';
-import UserProfile from '../sections/UserProfile';
-import GuideCard from '../sections/GuideCard';
+import UserProfile from '../components/UserProfile';
+import GuideCard from '../components/GuideCard';
 
 const Dashboard = () => {
   return (

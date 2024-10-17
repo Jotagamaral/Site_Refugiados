@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabaseCliente';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const FormPage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -169,9 +169,7 @@ const FormPage = () => {
               <h3 className="text-2xl font-semibold pb-5">
                 Parabéns! Você completou o questionário.
               </h3>
-              <a href="/guia" className="bg-blue-500 text-white py-2 px-4 rounded mb-4">
-                Voltar
-              </a>
+              <Link to="/guia" className="bg-blue-500 text-white py-2 px-4 rounded mb-4">Voltar</Link>
             </div>
           )}
           {/* Barra de progresso */}

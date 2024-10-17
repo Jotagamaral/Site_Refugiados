@@ -1,5 +1,5 @@
 import React from 'react';
-import GuiaSection from '../sections/GuiaSection';
+import GuiaSection from '../sections/Guia/GuiaSection';
 
 
 const Guia = () => {

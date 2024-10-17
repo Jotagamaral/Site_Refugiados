@@ -10,7 +10,7 @@ import Home from './pages/Home'; // Página Home (caso tenha)
 import Guia from './pages/Guia'; // Página Guia (caso tenha)
 import FormPage from './pages/FormPage'; // Importar a página de formulário
 import AuthPage from './pages/auth/AuthPage';
-import Dashboard from './pages/Dashboard';
+import Usuario from './pages/Usuario';
 
 
 export default function App() {
@@ -41,7 +41,7 @@ export default function App() {
                   <Route path="/guia" element={<Guia />} />
                   <Route path="/form/:id/:title" element={<FormPage />} />
                   <Route path="/auth" element={<AuthPage />} />
-                  <Route path="/usuario" element={<Dashboard />} />
+                  <Route path="/usuario" element={<Usuario />} />
               </Routes>
             </Router>
     )
@@ -55,7 +55,7 @@ export default function App() {
                   <Route path="/guia" element={<Guia />} />
                   <Route path="/form/:id/:title" element={<FormPage />} />
                   <Route path="/auth" element={<AuthPage />} />
-                  <Route path="/usuario" element={<Dashboard />} />
+                  <Route path="/usuario" element={<Usuario />} />
                   <Route path="/auth" element={<AuthPage />} />
               </Routes>
             </Router>
