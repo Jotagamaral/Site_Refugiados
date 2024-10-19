@@ -1,34 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import ContentCard from './ContentCard';
-import { supabase } from '../supabaseCliente';
 import { Link } from 'react-router-dom';
 
 const ContentGrid = () => {
   const [contentItems, setContentItems] = useState([]);
-  
+
+  // Função para buscar dados da API do back-end
   const fechData = async () => {
-
     try {
-      const { data: items, error } = await supabase
-      .schema('aurora_refugio')
-      .from('guides_manuals')
-      .select('*')
-
-      if (error) throw error
-
-      setContentItems(items)
-
-      
+      const response = await fetch('http://localhost:3000/api/guides');
+      const items = await response.json();
+      setContentItems(items);
     } catch (error) {
-      console.log("Erro na busca de dados", error.message)
+      console.log("Erro na busca de dados", error.message);
     }
   };
 
   useEffect(() => {
-    fechData()
+    fechData();
   }, []);
-  
-  //console.log(contentItems)
+
   return (
     <section className="max-w-screen-xl mx-auto p-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {contentItems.map((item, index) => (
@@ -41,7 +32,6 @@ const ContentGrid = () => {
         </Link>
       ))}
     </section>
-
   );
 };
 

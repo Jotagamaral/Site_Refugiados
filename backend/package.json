@@ -1,7 +1,8 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "server.mjs",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -11,6 +12,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@supabase/supabase-js": "^2.45.6",
+    "dotenv": "^16.4.5",
     "express": "^4.21.1"
   }
 }
