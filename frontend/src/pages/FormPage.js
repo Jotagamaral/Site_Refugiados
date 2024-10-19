@@ -160,7 +160,7 @@ const FormPage = () => {
               </div>
               {isCorrect && (
                 <p className="text-green-600 mt-2">
-                  Resposta correta! Avançando para a próxima pergunta...
+                  Resposta correta!
                 </p>
               )}
             </div>
