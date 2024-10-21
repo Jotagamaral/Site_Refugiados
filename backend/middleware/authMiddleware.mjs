@@ -7,5 +7,5 @@ const checkAuth = (req, res, next) => {
     // Lógica para validar o token, caso exista
     next();
 };
-  
+
 export default checkAuth;

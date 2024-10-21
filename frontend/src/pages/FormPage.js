@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { supabase } from '../supabaseCliente';
 import { Link, useParams } from 'react-router-dom';
+import config from '../config';
 
 const FormPage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -15,16 +15,12 @@ const FormPage = () => {
     const fechData = async () => {
 
       try {
-        // Buscar perguntas
-        const { data: questoes, error: questoesError } = await supabase
-          .schema('aurora_refugio')
-          .from('questions')
-          .select('question_id, correct_choice_id, question_text')
-          .eq('guide_id', id);
+        const questoesResponse = await fetch(`${config.API_URL}/guides/${id}/questions`);
+        const questoes = await questoesResponse.json();
 
-        if (questoesError) {
-          console.error('Erro ao buscar perguntas:', questoesError);
-          return;
+        if (!questoesResponse.ok) {
+          console.error('Erro ao buscar questões', questoes)
+          return
         }
 
         /*
@@ -44,14 +40,11 @@ const FormPage = () => {
 
             async (element) => {
 
-              const {data: alternativas, error: alternativasError} = await supabase
-              .schema('aurora_refugio')
-              .from('choices')
-              .select('choice_id, choice_text')
-              .eq('question_id', element.question_id);
+              const alternativasResponse = await fetch(`${config.API_URL}/guides/${id}/${element.question_id}/choices`);
+              const alternativas = await alternativasResponse.json();
 
-              if (alternativasError) {
-                console.error('Erro ao buscar alternativas', alternativasError)
+              if (!alternativasResponse.ok) {
+                console.error('Erro ao buscar alternativas', alternativas)
                 return []
               }
 
@@ -89,6 +82,8 @@ const FormPage = () => {
             ),
           };
         });
+
+        console.log('Questionário criado:', questions)
 
         setQuestionario(questions);
 

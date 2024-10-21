@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import ContentCard from './ContentCard';
 import { Link } from 'react-router-dom';
+import config from '../config';
 
 const ContentGrid = () => {
   const [contentItems, setContentItems] = useState([]);
 
-  // Função para buscar dados da API do back-end
+  // Buscar dados da API do back-end
   const fechData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/guides');
+
+      const response = await fetch(`${config.API_URL}/guides`);
       const items = await response.json();
+
+      console.log("Requisição de guias:",items)
+
       setContentItems(items);
+
     } catch (error) {
-      console.log("Erro na busca de dados", error.message);
+      console.log("Erro na busca de dados:", error.message);
     }
   };
 
