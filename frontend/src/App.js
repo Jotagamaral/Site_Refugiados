@@ -1,64 +1,39 @@
 import './index.css'
-import { useState, useEffect } from 'react'
-import { supabase } from "./supabaseCliente";
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Header from './components/Header'; // Certifique-se de que está usando o export default corretamente
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
-import FAQ from './pages/FAQ';  // Importando a nova página FAQ
-import Home from './pages/Home'; // Página Home (caso tenha)
-import Guia from './pages/Guia'; // Página Guia (caso tenha)
-import FormPage from './pages/FormPage'; // Importar a página de formulário
+import Header from './components/Header';
+import Home from './pages/Home'; 
+import Guia from './pages/Guia'; 
+import FormPage from './pages/FormPage'; 
+import FAQ from './pages/FAQ';
 import AuthPage from './pages/auth/AuthPage';
 import Usuario from './pages/Usuario';
+import PrivateRoute from './components/PrivateRoute';
 
 
-export default function App() {
-  const [session, setSession] = useState(null)
+const App = () => {
+  return ( 
+  <Router>
+    <Header />
+  
+    <Routes>
+      
+      {/*ROTAS ABERTAS*/ }
+      <Route path="/" element={<Home />} />
+      <Route path="/faq" element={<FAQ />} />
+      <Route path="/auth" element={<AuthPage />} />
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-    })
+      {/*ROTAS PRIVADAS*/ }
+      <Route path="/guia" element={<PrivateRoute component={Guia} />} />
+      <Route path="/form/:id/:title" element={<PrivateRoute component={FormPage} />} />
+      <Route path="/usuario" element={<PrivateRoute component={Usuario} />} />
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-
-    return () => subscription.unsubscribe()
-  }, [])
-
-
-  if (!session) {
-    return ( 
-            <Router>
-              <Header />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/faq" element={<FAQ />} />
-                  <Route path="/guia" element={<Guia />} />
-                  <Route path="/form/:id/:title" element={<FormPage />} />
-                  <Route path="/auth" element={<AuthPage />} />
-                  <Route path="/usuario" element={<Usuario />} />
-              </Routes>
-            </Router>
+      <Route path="*" element={<Navigate to="/auth" />} />
+    </Routes>
+  </Router>
     )
-  }
-  else {
-    return (<Router>
-              <Header />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/faq" element={<FAQ />} />
-                  <Route path="/guia" element={<Guia />} />
-                  <Route path="/form/:id/:title" element={<FormPage />} />
-                  <Route path="/auth" element={<AuthPage />} />
-                  <Route path="/usuario" element={<Usuario />} />
-                  <Route path="/auth" element={<AuthPage />} />
-              </Routes>
-            </Router>
-            )
-  }
+
 }
+
+export default App;

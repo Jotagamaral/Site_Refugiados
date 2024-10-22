@@ -6,7 +6,7 @@ import QuickGuideSection from '../sections/Home/QuickGuideSection';
 
 const Home = () => {
   return (
-    <div className="flex bg-gray-200 h-screen">
+    <div className="flex bg-gray-200 max-h-full">
       {/* Seção principal com a mascote e notícias */}
       <div className="w-2/3 p-8">
         <MascotSection />
