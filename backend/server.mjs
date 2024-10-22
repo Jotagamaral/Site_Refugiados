@@ -11,13 +11,13 @@ setupCORS(app)
 // Middleware para parsing de JSON
 app.use(express.json());
 
-// Usa as rotas dos guias
+// ROTA DE GUIAS
 app.use('/api', guideRoutes);
 
-// Usa as rotas dos guias
+// ROTA DE USUARIO
 app.use('/api/auth', authRoutes);
 
-// Inicializa o servidor na porta 5000
+// SERVER PORT: 5000
 app.listen(5000, () => {
   console.log('Servidor rodando na porta 5000');
 });

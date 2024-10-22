@@ -15,19 +15,10 @@ const loginUser = async (email, password) => {
     }
     
     return data ;
-
-
-
-
-
-
-
-
-    
 };
 
 // REALIZAR REGISTRO
-const registerUser = async (email, password) => {
+const registerUser = async (email, password, name, location) => {
 
     console.log('Requisição de Registro de usuário');
 
@@ -35,6 +26,25 @@ const registerUser = async (email, password) => {
         email,
         password,
     });
+    
+    const userId = data.user?.id;
+    
+    if (userId) {
+        const { error: insertError } = await supabase
+        .schema('aurora_refugio')
+        .from('users')
+        .insert({
+            auth_user_id: userId,
+            name: name,
+            email: email,
+            location: location
+        });
+
+        if (insertError) throw insertError;
+        else {
+            console.log('Usuário registrado com sucesso!');
+        }
+    }
 
     if (error) {
         throw new Error(error.message);

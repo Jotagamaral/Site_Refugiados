@@ -20,10 +20,10 @@ export const login = async (req, res) => {
 
 //CONTROLLER DE REGISTRO
 export const register = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, name, location } = req.body;
 
     try {
-        const result = await registerUser(email, password);
+        const result = await registerUser(email, password, name, location);
 
         if (result.error) {
             return res.status(400).json({ error: result.error });

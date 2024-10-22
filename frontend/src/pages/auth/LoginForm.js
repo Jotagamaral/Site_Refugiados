@@ -5,6 +5,7 @@ import config from '../../config';
 const LoginForm = ({ toggleForm }) => {
   const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
+  
   const navigate = useNavigate();
 
   const handleLogin = async () => {

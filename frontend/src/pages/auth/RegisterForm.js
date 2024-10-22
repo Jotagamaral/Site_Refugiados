@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { supabase } from "../../supabaseCliente";
+import { useNavigate } from 'react-router-dom';
+import config from '../../config';
 
 const RegisterForm = ({ toggleForm }) => {
   const [name, setName] = useState('');
@@ -8,43 +9,35 @@ const RegisterForm = ({ toggleForm }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [location, setLocation] = useState('');
 
+  const navigate = useNavigate();
+  
   const handleRegister = async () => {
-
+    
       if (password !== confirmPassword) {
         alert('As senhas não coincidem.');
         return;
       }
-    
-      try {
-        const { data, error } = await supabase.auth.signUp({
-          email: email,
-          password: password
-        });
-    
-        if (error) throw error;
-    
-        const userId = data.user?.id;
 
-        if (userId) {
-          const { error: insertError } = await supabase
-          .schema('aurora_refugio')
-          .from('users')
-          .insert({
-            auth_user_id: userId,
-            name: name,
-            email: email,
-            location: location
-          });
-          
-          
-          if (insertError) throw insertError;
-          else {
-            toggleForm('login');
-            console.log('Usuário registrado com sucesso!');
-          }
+      try {
+        const response = await fetch(`${config.API_URL}/auth/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: email, password: password, name: name, location: location }),
+        });
+  
+        const result = await response.json();
+  
+        if (!response.ok) {
+          throw new Error(result.error || 'Erro no Registro');
+        } else {
+    
+          console.log('Usuário Registrado com sucesso!', result.session);
+          navigate('/');  // Redirecionar após o login
         }
       } catch (error) {
-        alert('Mensagem de erro: ' + error.message);
+        alert(error.message || 'Erro ao tentar fazer Registro');
       }
   };
 

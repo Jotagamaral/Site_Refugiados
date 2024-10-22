@@ -3,10 +3,10 @@ import { login, register } from '../controllers/authController.mjs';
 
 const router = express.Router();
 
-// Rota de login
+// LOGIN ROUTE
 router.post('/login', login);
 
-// Rota de registro
+// REGISTRO ROUTE
 router.post('/register', register);
 
 export default router;
