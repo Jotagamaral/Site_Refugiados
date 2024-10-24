@@ -14,7 +14,7 @@ export const login = async (req, res) => {
 
         res.status(200).json({ session: result.session });
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao realizar o login' });
+        res.status(500).json({ error: 'Erro ao realizar o login  | CONTROLLER' });
     }
 };
 

@@ -1,27 +1,25 @@
 import React, { useState } from 'react';
+import config from '../../config'
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = ({ toggleForm }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigate = useNavigate()
+
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Aqui seria sua requisição ao backend para fazer o login
-    const mockToken = "meuTokenDeExemplo";  // Simulando um token de resposta do servidor
 
-    // Simulando uma resposta de sucesso do backend
-    localStorage.setItem('authToken', mockToken);  // Armazenando o token no localStorage
-    window.location.href = '/usuario';  // Redireciona o usuário para o Dashboard após login
-
-
-    /*try {
+    try {
       const response = await fetch(`${config.API_URL}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: usuario, password: password }),
+        body: JSON.stringify({ email: email, password: password }),
       });
 
       const result = await response.json();
@@ -29,13 +27,20 @@ const LoginForm = ({ toggleForm }) => {
       if (!response.ok) {
         throw new Error(result.error || 'Erro no login');
       } else {
-  
-        console.log('Usuário Logado com sucesso!', result.session);
+
+        const mockToken = result.session.access_token;
+
+        localStorage.setItem('authToken', mockToken);
+
+        console.log('Usuário Logado com sucesso:',mockToken )
+        
+        console.log(result.session);
         navigate('/');  // Redirecionar após o login
       }
     } catch (error) {
       alert(error.message || 'Erro ao tentar fazer login');
-    }*/
+    }
+
 
 
   };
