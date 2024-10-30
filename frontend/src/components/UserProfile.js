@@ -1,6 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import config from '../config';
 
 const UserProfile = () => {
+  const UserLogged = useState();
+
+  // Buscar dados da API do back-end
+  const fechData = async () => {
+    try {
+
+      const response = await fetch(`${config.API_URL}/auth/user`);
+      const User = await response.json();
+
+      console.log("Requisição de guias:", User)
+
+      UserLogged(User);
+
+    } catch (error) {
+      console.log("Erro na busca de dados:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    fechData();
+  }, []);
+
   return (
     <div className="bg-white p-4 rounded-lg shadow-lg">
       <div className="flex items-center space-x-4">
@@ -10,7 +33,7 @@ const UserProfile = () => {
         </div>
         <div>
           <h2 className="text-xl font-semibold">Seja Bem-Vindo,</h2>
-          <h3 className="text-lg">João Silva</h3>
+          <h3 className="text-lg">{UserLogged.name}</h3>
         </div>
       </div>
       <div className="mt-6 space-y-4">
@@ -35,7 +58,7 @@ const ProgressBar = ({ title, percentage }) => {
       </div>
       <div className="w-full bg-gray-200 h-6 rounded">
         <div
-          className="bg-blue-500 h-6 rounded"
+          className="bg-blue-500 h-6 rounded"s
           style={{ width: `${percentage}%` }}
         ></div>
       </div>
