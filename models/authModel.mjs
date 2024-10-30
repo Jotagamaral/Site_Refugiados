@@ -53,5 +53,21 @@ const registerUser = async (email, password, name, location) => {
     return data ;
 };
 
+// BUSCAR USER POR USER_ID
+const getUserByUser_id = async (User_id) => {
 
-export { loginUser, registerUser };
+    console.log('Requisição do User:', User_id);
+
+    const {data, error} = await supabase
+    .schema('aurora_refugio')
+    .from('users')
+    .select('name, email, location')
+    .eq('auth_user_id', User_id);
+    
+    return { data, error };
+};
+
+
+
+
+export { loginUser, registerUser, getUserByUser_id };
