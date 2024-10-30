@@ -11,8 +11,7 @@ const LoginForm = ({ toggleForm }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-
+  
     try {
       const response = await fetch(`${config.API_URL}/auth/login`, {
         method: 'POST',
@@ -21,29 +20,26 @@ const LoginForm = ({ toggleForm }) => {
         },
         body: JSON.stringify({ email: email, password: password }),
       });
-
+  
       const result = await response.json();
-
+  
       if (!response.ok) {
         throw new Error(result.error || 'Erro no login');
       } else {
-
         const mockToken = result.session.access_token;
-
         localStorage.setItem('authToken', mockToken);
-
-        console.log('Usuário Logado com sucesso:',mockToken )
-        
+  
+        console.log('Usuário Logado com sucesso:', mockToken);
         console.log(result.session);
-        navigate('/');  // Redirecionar após o login
+  
+        navigate('/'); // Navega para a página principal
+        window.location.reload(); // Recarrega a página para garantir atualização
       }
     } catch (error) {
       alert(error.message || 'Erro ao tentar fazer login');
     }
-
-
-
   };
+  
 
   return (
     <form onSubmit={handleLogin}>

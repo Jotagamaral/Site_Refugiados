@@ -16,7 +16,7 @@ const UserProfile = () => {
       UserLogged(User);
 
     } catch (error) {
-      console.log("Erro na busca de dados:", error.message);
+      console.log("Erro na busca dos dados:", error.message);
     }
   };
 
