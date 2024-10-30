@@ -31,7 +31,7 @@ const ContentGrid = () => {
       {contentItems.map((item, index) => (
         <Link to={`/form/${item.guide_id}/${item.title}`} className="block" key={index}>
           <ContentCard 
-            imgSrc={item.imgSrc || 'placeholder.png'} 
+            imgSrc={`${item.image_url}` || 'placeholder.png'} 
             title={item.title} 
             description={item.content} 
           />
