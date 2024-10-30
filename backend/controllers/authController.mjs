@@ -1,4 +1,4 @@
-import { loginUser, registerUser } from "../models/authModel.mjs";
+import { loginUser, registerUser, getUserByUser_id } from "../models/authModel.mjs";
 
 // CONTROLLER DE LOGIN
 export const login = async (req, res) => {
@@ -32,5 +32,21 @@ export const register = async (req, res) => {
         res.status(201).json({ user: result.user });
     } catch (error) {
         res.status(500).json({ error: 'Erro ao realizar registro' });
+    }
+};
+
+//CONTROLLER DO GET DO USUARIO
+export const getUser = async (req, res) => {
+    const { User_id } = await supabase.auth.getUser();
+
+    try {
+        const { data, error } = await getUserByUser_id(User_id);
+
+        if (error) {
+            throw new Error(error.message);
+        }
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar usuario' });
     }
 };
