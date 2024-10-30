@@ -2,26 +2,24 @@ import React, { useEffect, useState } from 'react';
 import config from '../config';
 
 const UserProfile = () => {
-  const UserLogged = useState();
+  const [UserLogged, setUserLogged] = useState(null); // Definir o estado corretamente
 
   // Buscar dados da API do back-end
-  const fechData = async () => {
+  const fetchData = async () => {
     try {
-
       const response = await fetch(`${config.API_URL}/auth/user`);
       const User = await response.json();
 
-      console.log("Requisição de guias:", User)
+      console.log("Requisição de guias:", User);
 
-      UserLogged(User);
-
+      setUserLogged(User); // Atualizar o estado com os dados do usuário
     } catch (error) {
       console.log("Erro na busca de dados:", error.message);
     }
   };
 
   useEffect(() => {
-    fechData();
+    fetchData();
   }, []);
 
   return (
