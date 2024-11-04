@@ -37,7 +37,7 @@ export const register = async (req, res) => {
 
 //CONTROLLER DO GET DO USUARIO
 export const getUser = async (req, res) => {
-    const { User_id } = await supabase.auth.getUser();
+    const { User_id } = await supabase.auth.getUser(); //! Esse getUser só poder ser feito no authModel.mjs, aqui no authController.mjs não tem o import do Supabase
 
     try {
         const { data, error } = await getUserByUser_id(User_id);
