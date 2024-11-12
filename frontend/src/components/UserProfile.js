@@ -35,6 +35,7 @@ const UserProfile = () => {
         </div>
       </div>
       <div className="mt-6 space-y-4">
+        <h3 className="text-lg">Cidade : {userLogged ? userLogged.location : 'Carregando...'}</h3>
         <ProgressBar title="Introdução" percentage={75} />
         <ProgressBar title="Conversação" percentage={25} />
         <ProgressBar title="Conversação" percentage={25} />
