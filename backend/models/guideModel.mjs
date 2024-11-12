@@ -3,8 +3,6 @@ import { supabase } from '../supabaseCliente.mjs';
 // BUSCAR GUIAS
 const getAllGuides = async () => {
 
-    console.log('Requisição de Guias');
-
     const { data, error } = await supabase
     .schema('aurora_refugio')
     .from('guides_manuals')

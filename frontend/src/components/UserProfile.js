@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import config from '../config';
 
 const UserProfile = () => {
-  const UserLogged = useState();
+  const [userLogged, setUserLogged] = useState(null)
 
   // Buscar dados da API do back-end
   const fechData = async () => {
@@ -11,9 +11,7 @@ const UserProfile = () => {
       const response = await fetch(`${config.API_URL}/auth/user`);
       const User = await response.json();
 
-      console.log("Requisição de guias:", User)
-
-      UserLogged(User);
+      setUserLogged(User[0]);
 
     } catch (error) {
       console.log("Erro na busca dos dados:", error.message);
@@ -23,7 +21,7 @@ const UserProfile = () => {
   useEffect(() => {
     fechData();
   }, []);
-
+  
   return (
     <div className="bg-white p-4 rounded-lg shadow-lg">
       <div className="flex items-center space-x-4">
@@ -33,7 +31,7 @@ const UserProfile = () => {
         </div>
         <div>
           <h2 className="text-xl font-semibold">Seja Bem-Vindo,</h2>
-          <h3 className="text-lg">{UserLogged.name}</h3>
+          <h3 className="text-lg">{userLogged ? userLogged.name : 'Carregando...'}</h3>
         </div>
       </div>
       <div className="mt-6 space-y-4">

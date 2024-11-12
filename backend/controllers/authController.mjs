@@ -1,4 +1,4 @@
-import { loginUser, registerUser, getUserByUser_id } from "../models/authModel.mjs";
+import { loginUser, registerUser, getUserByUser_id, getUserBd } from "../models/authModel.mjs";
 
 // CONTROLLER DE LOGIN
 export const login = async (req, res) => {
@@ -37,10 +37,10 @@ export const register = async (req, res) => {
 
 //CONTROLLER DO GET DO USUARIO
 export const getUser = async (req, res) => {
-    const { User_id } = await supabase.auth.getUser(); //! Esse getUser só poder ser feito no authModel.mjs, aqui no authController.mjs não tem o import do Supabase
+    const data1 = await getUserBd();
 
     try {
-        const { data, error } = await getUserByUser_id(User_id);
+        const { data, error } = await getUserByUser_id(data1);
 
         if (error) {
             throw new Error(error.message);

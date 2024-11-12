@@ -54,9 +54,20 @@ const registerUser = async (email, password, name, location) => {
 };
 
 // BUSCAR USER POR USER_ID
-const getUserByUser_id = async (User_id) => {
+const getUserBd = async(res) => {
+    try {
+        const {data, error} = await supabase.auth.getUser();
+        if (error) {
+            throw new Error(error.message);
+        }
+        return data.user.id;
 
-    console.log('Requisição do User:', User_id);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar usuario' });
+    }
+};
+
+const getUserByUser_id = async (User_id) => {
 
     const {data, error} = await supabase
     .schema('aurora_refugio')
@@ -70,4 +81,4 @@ const getUserByUser_id = async (User_id) => {
 
 
 
-export { loginUser, registerUser, getUserByUser_id };
+export { loginUser, registerUser, getUserByUser_id, getUserBd};
