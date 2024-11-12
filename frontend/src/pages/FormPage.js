@@ -109,7 +109,7 @@ const FormPage = () => {
         { choice_id: 2, choice_text: "Un sistema gratuito y público de salud. A free and public health system" },
         { choice_id: 3, choice_text: "Un sistema que solo ofrece vacunas. A system that only offers vaccines" },
       ],
-      answer: { choice_id: 1, choice_text: "Un sistema privado de salud. A private health system" }
+      answer: { choice_id: 2, choice_text: "Un sistema gratuito y público de salud. A free and public health system" }
     },
     {
       title: "Capitais do Brasil",

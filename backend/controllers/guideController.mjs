@@ -1,4 +1,4 @@
-import { getAllGuides, getQuestionsByGuide_id, getChoicesByQuestion_id } from '../models/guideModel.mjs';
+import { getAllGuides, getSectionsByGuide_id, getQuestionsBySection_id, getChoicesByQuestion_id } from '../models/guideModel.mjs';
 
 // CONTROLLER DE GUIAS
 export const getGuides = async (req, res) => {
@@ -14,12 +14,28 @@ export const getGuides = async (req, res) => {
     }
 };
 
-// CONTROLLER DE QUESTÕES
-export const getQuestions = async (req, res) => {
+// CONTROLLER DE SEÇÕES
+export const getSections = async (req, res) => {
     const { guide_id } = req.params;
 
     try {
-        const { data, error } = await getQuestionsByGuide_id(guide_id);
+        const { data, error } = await getSectionsByGuide_id(guide_id);
+
+        if (error) {
+            throw new Error(error.message);
+        }
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar as seções' });
+    }
+};
+
+// CONTROLLER DE QUESTÕES
+export const getQuestions = async (req, res) => {
+    const { section_id } = req.params;
+
+    try {
+        const { data, error } = await getQuestionsBySection_id(section_id);
 
         if (error) {
             throw new Error(error.message);

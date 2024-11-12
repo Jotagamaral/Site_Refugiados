@@ -11,16 +11,30 @@ const getAllGuides = async () => {
     return { data, error };
 };
 
-// BUSCAR PERGUNTAS DE GUIAS
-const getQuestionsByGuide_id = async (guide_id) => {
+// BUSCAR SEÇÕES DE GUIAS
+const getSectionsByGuide_id = async (guide_id) => {
 
-    console.log('Requisição de perguntas de guide:', guide_id);
+    console.log('Requisição de seção de guide:', guide_id);
+
+    const { data, error } = await supabase
+    .schema('aurora_refugio')
+    .from('sections')
+    .select('section_title, explanation')
+    .eq('guide_id', guide_id);
+    
+    return { data, error };
+};
+
+// BUSCAR PERGUNTAS DE GUIAS
+const getQuestionsBySection_id = async (section_id) => {
+
+    console.log('Requisição de perguntas de seção:', section_id);
 
     const { data, error } = await supabase
     .schema('aurora_refugio')
     .from('questions')
     .select('question_id, correct_choice_id, question_text')
-    .eq('guide_id', guide_id);
+    .eq('section_id', section_id);
     
     return { data, error };
 };
@@ -41,4 +55,4 @@ const getChoicesByQuestion_id = async (question_id) => {
 
 
 
-export { getAllGuides, getQuestionsByGuide_id, getChoicesByQuestion_id };
+export { getAllGuides,getSectionsByGuide_id, getQuestionsBySection_id, getChoicesByQuestion_id };
