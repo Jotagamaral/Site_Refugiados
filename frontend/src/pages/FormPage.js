@@ -3,158 +3,104 @@ import { Link, useParams } from 'react-router-dom';
 import config from '../config';
 
 const FormPage = () => {
+  const [currentSection, setCurrentSection] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isCorrect, setIsCorrect] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [showQuestion, setShowQuestion] = useState(false);
 
-  //const [questions, setQuestionario] = useState([]);
+  const [sections, setSections] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  //const { id } = useParams();
+  const { id } = useParams();
 
-  // useEffect(() => {
-  //   const fechData = async () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const sectionsResponse = await fetch(`${config.API_URL}/guides/${id}/sections`);
+        const fetchedSections = await sectionsResponse.json();
 
-  //     try {
-  //       const questoesResponse = await fetch(`${config.API_URL}/guides/${id}/questions`);
-  //       const questoes = await questoesResponse.json();
+        if (!sectionsResponse.ok) {
+          console.error('Erro ao buscar seções', fetchedSections);
+          return;
+        }
 
-  //       if (!questoesResponse.ok) {
-  //         console.error('Erro ao buscar questões', questoes)
-  //         return
-  //       }
+        const sectionsWithQuestions = await Promise.all(
+          fetchedSections.map(async (section) => {
+            const questionsResponse = await fetch(`${config.API_URL}/guides/${section.section_id}/questions`);
+            const questions = await questionsResponse.json();
 
-  //       /*
-  //       EXEMPLO DA REQUISIÇÃO QUESTOES
-  //       questoes = {
-  //       correct_choice_id: 1,
-  //       question_id: 1,
-  //       question_text: "Qual dos seguintes é um meio comum de transporte público em áreas urbanas?
-  //       }
-  //       */
+            if (!questionsResponse.ok) {
+              console.error('Erro ao buscar questões', questions);
+              return section;
+            }
 
+            const questionsWithChoices = await Promise.all(
+              questions.map(async (question) => {
+                const choicesResponse = await fetch(`${config.API_URL}/guides/${question.question_id}/choices`);
+                const choices = await choicesResponse.json();
 
-  //       // Buscar alternativas
-  //       const todasAlternativas = await Promise.all(
+                if (!choicesResponse.ok) {
+                  console.error('Erro ao buscar alternativas', choices);
+                  return question;
+                }
 
-  //         questoes.map(
+                return {
+                  ...question,
+                  choices: choices.map((choice) => ({
+                    choice_id: choice.choice_id,
+                    choice_text: choice.choice_text,
+                  })),
+                };
+              })
+            );
 
-  //           async (element) => {
+            return {
+              ...section,
+              questions: questionsWithChoices,
+            };
+          })
+        );
 
-  //             const alternativasResponse = await fetch(`${config.API_URL}/guides/${id}/${element.question_id}/choices`);
-  //             const alternativas = await alternativasResponse.json();
+        setSections(sectionsWithQuestions);
 
-  //             if (!alternativasResponse.ok) {
-  //               console.error('Erro ao buscar alternativas', alternativas)
-  //               return []
-  //             }
+        //console.log(sectionsWithQuestions)
 
-  //             return {
-  //               question_id:element.question_id,
-  //               alternativas: alternativas.map((alt) => ({
-  //                 choice_id: alt.choice_id,
-  //                 choice_text: alt.choice_text
-  //               })),
-  //             };
-  //           })
-  //         )
+      } catch (error) {
+        console.error('Erro ao buscar dados', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  //         /*
-  //         EXEMPLO DA REQUISIÇÃO ALTERNATIVAS
-  //         todasAlternativas = {
-  //         alternativas [{choice_id: 3, choice_text: 'Avião'}, {choice_id: 2, choice_text: 'Carro'} ...],
-  //         question_id: 1,
-  //         }
-  //         */
+    fetchData();
+  }, [id]);
 
-  //       // Criar questionário
-  //       const questions = questoes.map((questao) => {
-
-  //         const alternativasFiltradas = todasAlternativas.find(
-  //           (alt) => alt.question_id === questao.question_id
-  //         )?.alternativas || [];
-
-
-  //         return {
-  //           question: questao.question_text,
-  //           options: alternativasFiltradas,
-  //           answer: alternativasFiltradas.find(
-  //             (alt) => alt.choice_id === questao.correct_choice_id
-  //           ),
-  //         };
-  //       });
-
-  //       console.log('Questionário criado:', questions)
-
-  //       setQuestionario(questions);
-
-  //     } catch (error) {
-  //       console.error('Erro ao buscar dados', error);
-  //     }
-  //   };
-
-  //   fechData();
-  // }, [id]);
-
-  // Função chamada ao clicar na resposta
-   // Dados estáticos simulando o conteúdo das questões e alternativas
-  const staticQuestions = [
-    {
-      title: "Transporte Público",
-      description: "Español: En Brasil, existe un sistema público y gratuito de salud llamado Sistema Único de Salud (SUS). El SUS ofrece servicios de atención médica para todas las personas que viven en el país, incluyendo refugiados y migrantes. Con el SUS, puedes obtener atención médica sin costo en clínicas y hospitales públicos.Inglês: In Brazil, there is a public and free health system called the Unified Health System (SUS). SUS provides medical services for everyone living in the country, including refugees and migrants. With SUS, you can access medical care at no cost in public clinics and hospitals.",
-      question: "Qual dos seguintes é um meio comum de transporte público em áreas urbanas?",
-      options: [
-        { choice_id: 1, choice_text: "Un sistema privado de salud. A private health system" },
-        { choice_id: 2, choice_text: "Un sistema gratuito y público de salud. A free and public health system" },
-        { choice_id: 3, choice_text: "Un sistema que solo ofrece vacunas. A system that only offers vaccines" },
-      ],
-      answer: { choice_id: 2, choice_text: "Un sistema gratuito y público de salud. A free and public health system" }
-    },
-    {
-      title: "Capitais do Brasil",
-      description: "Este tema aborda o conhecimento das capitais dos estados brasileiros e sua importância no contexto político e administrativo do país.",
-      question: "Qual é a capital do Brasil?",
-      options: [
-        { choice_id: 5, choice_text: "Brasília" },
-        { choice_id: 6, choice_text: "São Paulo" },
-        { choice_id: 7, choice_text: "Rio de Janeiro" },
-        { choice_id: 8, choice_text: "Salvador" }
-      ],
-      answer: { choice_id: 5, choice_text: "Brasília" }
-    },
-    {
-      title: "Continentes",
-      description: "Aqui você verá perguntas relacionadas à localização geográfica dos continentes e a distribuição dos países ao redor do mundo.",
-      question: "Em qual continente o Brasil está localizado?",
-      options: [
-        { choice_id: 9, choice_text: "América do Sul" },
-        { choice_id: 10, choice_text: "Ásia" },
-        { choice_id: 11, choice_text: "Europa" },
-        { choice_id: 12, choice_text: "África" }
-      ],
-      answer: { choice_id: 9, choice_text: "América do Sul" }
-    }
-  ];
-
-  // Remover ou comentar o estado de questões dinâmicas e usar os dados estáticos
-  const [questions] = useState(staticQuestions);
-
-  // Função chamada ao clicar na resposta
   const handleAnswerSelect = (option) => {
     setSelectedAnswer(option);
 
-    if (option.choice_id === questions[currentQuestion].answer.choice_id) {
+    if (option.choice_id === sections[currentSection].questions[currentQuestion].correct_choice_id) {
       setIsCorrect(true);
 
-      if (currentQuestion === questions.length - 1) {
-        setCompleted(true);
+      if (currentQuestion === sections[currentSection].questions.length - 1) {
+        if (currentSection === sections.length - 1) {
+          setCompleted(true);
+        } else {
+          setTimeout(() => {
+            setCurrentSection(currentSection + 1);
+            setCurrentQuestion(0);
+            setSelectedAnswer(null);
+            setIsCorrect(false);
+            setShowQuestion(false);
+          }, 1000);
+        }
       } else {
         setTimeout(() => {
           setCurrentQuestion(currentQuestion + 1);
           setSelectedAnswer(null);
           setIsCorrect(false);
-          setShowQuestion(false); // Retorna à descrição para a próxima questão
+          setShowQuestion(false);
         }, 1000);
       }
     } else {
@@ -163,16 +109,18 @@ const FormPage = () => {
     }
   };
 
-  //console.log(questions)
+  if (isLoading) {
+    return <div className="text-center">Carregando...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="flex justify-center items-center">
         <div className="w-4/5 p-10">
-          {!showQuestion && !completed && (
+          {!showQuestion && !completed && sections[currentSection] && (
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-semibold mb-4">{questions[currentQuestion].title}</h3>
-              <p className="mb-6">{questions[currentQuestion].description}</p>
+              <h3 className="text-2xl font-semibold mb-4">{sections[currentSection].section_title}</h3>
+              <p className="mb-6">{sections[currentSection].explanation}</p>
               <button
                 onClick={() => setShowQuestion(true)}
                 className="bg-blue-500 text-white py-2 px-4 rounded"
@@ -182,13 +130,13 @@ const FormPage = () => {
             </div>
           )}
 
-          {showQuestion && !completed && (
+          {showQuestion && !completed && sections[currentSection] && (
             <div className="text-center p-5">
               <h2 className="text-xl font-bold mb-4">
-                Pergunta {currentQuestion + 1}: {questions[currentQuestion].question}
+                Pergunta {currentQuestion + 1}: {sections[currentSection].questions[currentQuestion].question_text}
               </h2>
               <div className="flex justify-around gap-10">
-                {questions[currentQuestion].options.map((option, index) => (
+                {sections[currentSection].questions[currentQuestion].choices.map((option, index) => (
                   <div key={index} className="w-1/3">
                     <label
                       className={`block p-4 h-52 bg-white rounded-lg cursor-pointer text-center hover:bg-blue-300 ${
@@ -224,7 +172,7 @@ const FormPage = () => {
             <div className="h-2 bg-gray-300 rounded-full">
               <div
                 className="h-2 bg-blue-500 rounded-full"
-                style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+                style={{ width: `${((currentSection * sections[currentSection].questions.length + currentQuestion + 1) / (sections.reduce((acc, sec) => acc + sec.questions.length, 0))) * 100}%` }}
               />
             </div>
           </div>
@@ -233,12 +181,12 @@ const FormPage = () => {
         <div className="w-1/5 h-screen">
           <div className="bg-white p-4 h-full">
             <ul className="flex flex-col items-center h-full space-y-10">
-              {questions.map((q, index) => (
+              {sections.map((section, secIndex) => (
                 <li
-                  key={index}
-                  className={`font-bold ${index === currentQuestion ? 'text-black' : 'text-gray-600'}`}
+                  key={secIndex}
+                  className={`font-bold ${secIndex === currentSection ? 'text-black' : 'text-gray-600'}`}
                 >
-                  Tema {index + 1}
+                  Tema {secIndex + 1}
                 </li>
               ))}
             </ul>

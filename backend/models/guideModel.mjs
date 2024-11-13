@@ -3,6 +3,8 @@ import { supabase } from '../supabaseCliente.mjs';
 // BUSCAR GUIAS
 const getAllGuides = async () => {
 
+    console.log('Requisição de guias');
+
     const { data, error } = await supabase
     .schema('aurora_refugio')
     .from('guides_manuals')
@@ -19,7 +21,7 @@ const getSectionsByGuide_id = async (guide_id) => {
     const { data, error } = await supabase
     .schema('aurora_refugio')
     .from('sections')
-    .select('section_title, explanation')
+    .select('section_id, section_title, explanation')
     .eq('guide_id', guide_id);
     
     return { data, error };

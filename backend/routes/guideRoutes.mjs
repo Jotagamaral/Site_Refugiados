@@ -14,6 +14,6 @@ router.get('/guides/:guide_id/sections', getSections)
 router.get('/guides/:section_id/questions', getQuestions)
 
 // GET BUSCA ALTERNATIVAS DE QUESTÕES
-router.get('/guides/:guide_id/:question_id/choices', getChoices)
+router.get('/guides/:question_id/choices', getChoices)
 
 export default router;
