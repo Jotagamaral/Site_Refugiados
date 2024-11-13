@@ -27,7 +27,7 @@ const Header = () => {
   useEffect(() => {
     const authToken = localStorage.getItem('authToken');
     setIsLoggedIn(!!authToken);
-    console.log('HEADER | Logado:', isLoggedIn)
+    //console.log('HEADER | Logado:', isLoggedIn)
   }, [isLoggedIn]); // dependência para refletir alterações
 
   // Fechar o pop-up ao clicar fora da área
