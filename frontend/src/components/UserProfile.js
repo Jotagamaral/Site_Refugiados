@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import config from '../config';
 
 const UserProfile = () => {
-  const [UserLogged, setUserLogged] = useState(null); // Definir o estado corretamente
+
+  const [userLogged, setUserLogged] = useState(null)
 
   // Buscar dados da API do back-end
   const fetchData = async () => {
@@ -10,18 +11,19 @@ const UserProfile = () => {
       const response = await fetch(`${config.API_URL}/auth/user`);
       const User = await response.json();
 
-      console.log("Requisição de guias:", User);
+
+      setUserLogged(User[0]);
 
       setUserLogged(User); // Atualizar o estado com os dados do usuário
     } catch (error) {
-      console.log("Erro na busca de dados:", error.message);
+      console.log("Erro na busca dos dados:", error.message);
     }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
-
+  
   return (
     <div className="bg-white p-4 rounded-lg shadow-lg">
       <div className="flex items-center space-x-4">
@@ -31,10 +33,11 @@ const UserProfile = () => {
         </div>
         <div>
           <h2 className="text-xl font-semibold">Seja Bem-Vindo,</h2>
-          <h3 className="text-lg">{UserLogged.name}</h3>
+          <h3 className="text-lg">{userLogged ? userLogged.name : 'Carregando...'}</h3>
         </div>
       </div>
       <div className="mt-6 space-y-4">
+        <h3 className="text-lg">Cidade : {userLogged ? userLogged.location : 'Carregando...'}</h3>
         <ProgressBar title="Introdução" percentage={75} />
         <ProgressBar title="Conversação" percentage={25} />
         <ProgressBar title="Conversação" percentage={25} />

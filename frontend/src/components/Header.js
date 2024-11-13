@@ -4,7 +4,7 @@ import { FaHome, FaQuestionCircle, FaBook, FaUser, FaSignInAlt, FaSignOutAlt, Fa
 
 const Header = () => {
   const [showPopup, setShowPopup] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Simulando o status de login
+  const [isLoggedIn, setIsLoggedIn] = useState();
   const location = useLocation();
   const popUpRef = useRef(null);
 
@@ -16,11 +16,19 @@ const Header = () => {
 
   const handleLogOut = async () => {
     alert('Usuário deslogado!');
-    setIsLoggedIn(false); // Simulando o logout
+    setIsLoggedIn(false); 
     setShowPopup(false);
-    localStorage.removeItem('authToken');  // Remove o token de autenticação
-    navigate('/auth')
+    localStorage.removeItem('authToken');
+    navigate('/auth');
   };
+
+
+  // Monitora mudanças de `authToken` e atualiza `isLoggedIn`
+  useEffect(() => {
+    const authToken = localStorage.getItem('authToken');
+    setIsLoggedIn(!!authToken);
+    console.log('HEADER | Logado:', isLoggedIn)
+  }, [isLoggedIn]); // dependência para refletir alterações
 
   // Fechar o pop-up ao clicar fora da área
   useEffect(() => {
@@ -35,18 +43,10 @@ const Header = () => {
     };
   }, [popUpRef]);
 
-  // Fechar o pop-up ao redirecionar para outra página
+  // Fechar o pop-up ao redirecionar
   useEffect(() => {
     setShowPopup(false);
   }, [location]);
-
-  // Simulando o login para teste
-  useEffect(() => {
-    // Aqui você poderia usar a lógica do Supabase ou de outro método de autenticação para verificar o login.
-    // Vou deixar setado como true apenas para demonstrar.
-    const userLoggedIn = true; // Simulação de verificação de login
-    setIsLoggedIn(userLoggedIn);
-  }, []);
 
   return (
     <header className="bg-blue-300 p-5 flex justify-between items-center">
