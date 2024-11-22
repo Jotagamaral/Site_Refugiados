@@ -11,10 +11,8 @@ const UserProfile = () => {
       const response = await fetch(`${config.API_URL}/auth/user`);
       const User = await response.json();
 
-
-      setUserLogged(User[0]);
-
       setUserLogged(User); // Atualizar o estado com os dados do usuário
+
     } catch (error) {
       console.log("Erro na busca dos dados:", error.message);
     }
@@ -33,12 +31,12 @@ const UserProfile = () => {
         </div>
         <div>
           <h2 className="text-xl font-semibold">Seja Bem-Vindo,</h2>
-          <h3 className="text-lg">{userLogged ? userLogged.name : 'Carregando...'}</h3>
+          <h3 className="text-lg">{userLogged ? userLogged[0].name : 'Carregando...'}</h3>
         </div>
       </div>
       <div className="mt-6 space-y-4">
-        <h3 className="text-lg">Cidade : {userLogged ? userLogged.location : 'Carregando...'}</h3>
-        <ProgressBar title="Introdução" percentage={75} />
+        <h3 className="text-lg">Cidade : {userLogged ? userLogged[0].location : 'Carregando...'}</h3>
+        <ProgressBar title="Guias Completos" percentage={75} />
         <ProgressBar title="Conversação" percentage={25} />
         <ProgressBar title="Conversação" percentage={25} />
       </div>

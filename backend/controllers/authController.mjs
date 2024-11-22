@@ -1,4 +1,4 @@
-import { loginUser, registerUser, getUserByUser_id, getUserBd } from "../models/authModel.mjs";
+import { loginUser, registerUser, getUser_id, getUserBd } from "../models/authModel.mjs";
 
 // CONTROLLER DE LOGIN
 export const login = async (req, res) => {
@@ -36,11 +36,11 @@ export const register = async (req, res) => {
 };
 
 //CONTROLLER DO GET DO USUARIO
-export const getUser = async (req, res) => {
-    const data1 = await getUserBd();
+export const getUser = async (req,res) => {
+    const data_id = await getUserBd();
 
     try {
-        const { data, error } = await getUserByUser_id(data1);
+        const { data, error } = await getUser_id(data_id.id);
 
         if (error) {
             throw new Error(error.message);
@@ -48,5 +48,15 @@ export const getUser = async (req, res) => {
         res.json(data);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar usuario' });
+    }
+};
+
+//CONTROLLER DO GET DO ID DOUSUARIO
+export const getUserID = async (req,res) => {
+    try{
+        const data_id = await getUserBd();
+        res.json(data_id.id);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar usuario', error });
     }
 };

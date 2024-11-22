@@ -3,7 +3,7 @@ import { supabase } from '../supabaseCliente.mjs';
 // BUSCAR GUIAS
 const getAllGuides = async () => {
 
-    console.log('Requisição de guias');
+    //console.log('Requisição de guias');
 
     const { data, error } = await supabase
     .schema('aurora_refugio')
@@ -16,7 +16,7 @@ const getAllGuides = async () => {
 // BUSCAR SEÇÕES DE GUIAS
 const getSectionsByGuide_id = async (guide_id) => {
 
-    console.log('Requisição de seção de guide:', guide_id);
+    //console.log('Requisição de seção de guide:', guide_id);
 
     const { data, error } = await supabase
     .schema('aurora_refugio')
@@ -30,7 +30,7 @@ const getSectionsByGuide_id = async (guide_id) => {
 // BUSCAR PERGUNTAS DE GUIAS
 const getQuestionsBySection_id = async (section_id) => {
 
-    console.log('Requisição de perguntas de seção:', section_id);
+    //console.log('Requisição de perguntas de seção:', section_id);
 
     const { data, error } = await supabase
     .schema('aurora_refugio')
@@ -44,7 +44,7 @@ const getQuestionsBySection_id = async (section_id) => {
 // BUSCAR ALTERNATIVAS DE PERGUNTAS
 const getChoicesByQuestion_id = async (question_id) => {
 
-    console.log('Requisição de alternativas da pergunta:', question_id);
+    //console.log('Requisição de alternativas da pergunta:', question_id);
 
     const {data, error} = await supabase
     .schema('aurora_refugio')
@@ -55,6 +55,17 @@ const getChoicesByQuestion_id = async (question_id) => {
     return { data, error };
 };
 
+const getCompletedGuides_Userid = async (user_id) => {
 
+    //console.log('Requisição de Guias completos para o User de Id:', user_id);
 
-export { getAllGuides,getSectionsByGuide_id, getQuestionsBySection_id, getChoicesByQuestion_id };
+    const { data, error } = await supabase
+    .schema('aurora_refugio')
+    .from('completed_guides')
+    .select('guide_id')
+    .eq('user_id', user_id);
+    
+    return { data, error };
+};
+
+export { getAllGuides,getSectionsByGuide_id, getQuestionsBySection_id, getChoicesByQuestion_id, getCompletedGuides_Userid };

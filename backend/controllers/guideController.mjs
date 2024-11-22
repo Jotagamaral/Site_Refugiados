@@ -1,4 +1,4 @@
-import { getAllGuides, getSectionsByGuide_id, getQuestionsBySection_id, getChoicesByQuestion_id } from '../models/guideModel.mjs';
+import { getAllGuides, getSectionsByGuide_id, getQuestionsBySection_id, getChoicesByQuestion_id, getCompletedGuides_Userid } from '../models/guideModel.mjs';
 
 // CONTROLLER DE GUIAS
 export const getGuides = async (req, res) => {
@@ -59,5 +59,21 @@ export const getChoices = async (req, res) => {
         res.json(data);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar as alternativas' });
+    }
+};
+
+// CONTROLLER DE SEÇÕES
+export const getCompletedGuides = async (req, res) => {
+    const { user_id } = req.params;
+
+    try {
+        const { data, error } = await getCompletedGuides_Userid(user_id);
+
+        if (error) {
+            throw new Error(error.message);
+        }
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar os Guias Completados' });
     }
 };

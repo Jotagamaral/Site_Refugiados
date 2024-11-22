@@ -60,14 +60,15 @@ const getUserBd = async(res) => {
         if (error) {
             throw new Error(error.message);
         }
-        return data.user.id;
+        return data.user;
 
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao buscar usuario' });
+        console.log('Error ao buscar o usuario', error)
+        //res.status(500).json({ error: 'Erro ao buscar usuario' });
     }
 };
 
-const getUserByUser_id = async (User_id) => {
+const getUser_id = async (User_id) => {
 
     const {data, error} = await supabase
     .schema('aurora_refugio')
@@ -81,4 +82,4 @@ const getUserByUser_id = async (User_id) => {
 
 
 
-export { loginUser, registerUser, getUserByUser_id, getUserBd};
+export { loginUser, registerUser, getUser_id, getUserBd};
