@@ -1,0 +1,66 @@
+.noticias-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa; /* Cor de fundo da página */
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap; /* Ajusta os cards em múltiplas linhas se necessário */
+  gap: 20px;
+  justify-content: center; /* Centraliza os cards */
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para os cards */
+  width: 300px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Efeito de levantar o card ao passar o mouse */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover; /* Garante que a imagem fique bem ajustada */
+}
+
+.card-content {
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.card-description {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #666;
+}
+
+.card-link {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.card-link:hover {
+  color: #0056b3;
+}
