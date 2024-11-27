@@ -1,16 +1,19 @@
 import React from 'react';
 
-const GuideCard = ({ title, description, selected }) => {
+const GuideCard = ({width='w-72', imgSrc, title, description, selected }) => {
+  
   return (
     <div
-      className={`p-4 rounded-lg shadow-lg ${
+      className={`p-4 rounded-lg shadow-lg ${width} ${
         selected ? 'bg-blue-200' : 'bg-white'
-      }`}
+      }`} 
     >
-      <div className="w-16 h-16 bg-gray-100 rounded-lg mb-4"></div>
+      <img src={imgSrc} alt={title} className="w-full h-40 object-cover mb-4 rounded" />
       <h4 className="text-lg font-semibold">{title}</h4>
       <p className="text-sm text-gray-600">{description}</p>
-      {selected && <span className="block mt-4 text-green-600">✔️ Completo</span>}
+      <span className="block mt-4 text-green-600">
+        {selected ? '✔️ Completo' : '❌ Incompleto'}
+      </span>
     </div>
   );
 };

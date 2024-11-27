@@ -1,5 +1,5 @@
 import express from 'express';
-import { getGuides, getQuestions, getChoices, getSections } from '../controllers/guideController.mjs';
+import { getGuides, getQuestions, getChoices, getSections, getCompletedGuides } from '../controllers/guideController.mjs';
 
 const router = express.Router();
 
@@ -15,5 +15,8 @@ router.get('/guides/:section_id/questions', getQuestions)
 
 // GET BUSCA ALTERNATIVAS DE QUESTÕES
 router.get('/guides/:question_id/choices', getChoices)
+
+// GET BUSCA GUIAS COMPLETOS DO USUARIO
+router.get('/guides/:user_id', getCompletedGuides)
 
 export default router;

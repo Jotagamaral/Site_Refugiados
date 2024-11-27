@@ -1,6 +1,7 @@
 import express from 'express';
 import guideRoutes from './routes/guideRoutes.mjs'; // Importa as rotas dos guias
 import authRoutes from './routes/authRoutes.mjs'
+import noticiasRoutes from "./routes/newsRoutes.mjs";
 import { setupCORS } from './middleware/corsMiddleware.mjs';
 
 
@@ -16,6 +17,9 @@ app.use('/api', guideRoutes);
 
 // ROTA DE USUARIO
 app.use('/api/auth', authRoutes);
+
+// ROTA DE NOTÍCIAS
+app.use("/api/news", noticiasRoutes);
 
 // SERVER PORT: 5000
 app.listen(5000, () => {
