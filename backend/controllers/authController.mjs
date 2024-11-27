@@ -51,12 +51,41 @@ export const getUser = async (req,res) => {
     }
 };
 
-//CONTROLLER DO GET DO ID DOUSUARIO
+//CONTROLLER DO GET DO ID DO USUARIO
 export const getUserID = async (req,res) => {
     try{
         const data_id = await getUserBd();
         res.json(data_id.id);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar usuario', error });
+    }
+};
+
+//CONTROLLER DO GET GUIDES COMPLETOS USUÁRIO
+export const getCompleteGuideData = async (req, res) => {
+    const { data_id } = await getUserBd();
+
+    try {
+        // Buscar todos os guias
+        const { dataGuides, errorGuides } = await getAllGuides();
+        if (errorGuides) throw new Error(guidesError.message);
+
+        // Buscar guias completados pelo usuário
+        const { data: completedGuides, error: completedGuidesError } = await getCompletedGuides_Userid(user_id);
+        if (completedGuidesError) throw new Error(completedGuidesError.message);
+
+        // Mapeia os IDs de guias completados
+        const completedGuideIds = completedGuides.map((guide) => guide.guide_id);
+
+        // Construir resposta consolidada
+        const response = guides.map((guide) => ({
+            ...guide,
+            isCompleted: completedGuideIds.includes(guide.guide_id),
+        }));
+
+        res.json(response);
+    } catch (error) {
+        console.error("Erro ao buscar dados completos dos guias:", error.message);
+        res.status(500).json({ error: 'Erro ao buscar os dados completos dos guias' });
     }
 };

@@ -55,8 +55,11 @@ const registerUser = async (email, password, name, location) => {
 
 // BUSCAR USER POR USER_ID
 const getUserBd = async(res) => {
+
     try {
         const {data, error} = await supabase.auth.getUser();
+
+        console.log(data)
         if (error) {
             throw new Error(error.message);
         }
@@ -64,7 +67,6 @@ const getUserBd = async(res) => {
 
     } catch (error) {
         console.log('Error ao buscar o usuario', error)
-        //res.status(500).json({ error: 'Erro ao buscar usuario' });
     }
 };
 

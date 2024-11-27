@@ -57,7 +57,7 @@ const ProgressBar = ({ title, percentage }) => {
       </div>
       <div className="w-full bg-gray-200 h-6 rounded">
         <div
-          className="bg-blue-500 h-6 rounded"s
+          className="bg-blue-500 h-6 rounded"
           style={{ width: `${percentage}%` }}
         ></div>
       </div>

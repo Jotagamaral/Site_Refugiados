@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ContentCard from "../../components/ContentCard";
 import config from '../../config';
+import NewsCard from '../../components/NewsCard.js'
 
 const NewsSection = () => {
   const [noticias, setNoticias] = useState([]);
@@ -46,7 +46,7 @@ const NewsSection = () => {
       <h2 className="text-xl font-bold mb-4">Notícias</h2>
       <div className="grid grid-cols-3 gap-10">
         {noticias.map((noticia, index) => (
-          <ContentCard
+          <NewsCard
             key={index}
             imgSrc={noticia.imagem}
             title={noticia.titulo}
