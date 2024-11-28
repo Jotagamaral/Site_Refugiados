@@ -6,9 +6,8 @@ const HelpSection = () => {
       <img src="./assets/aurora.png" alt="Imagem de ajuda" className="w-24 mr-5" />
       <div className="help-text">
         <p className="text-2xl mb-3">Ainda com dúvidas?</p>
-        <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600">
-          Entre em contato
-        </button>
+        <p className="text-lg text-gray-700 mb-3">Entre em contato por email: <a href="mailto:aurorarefugio.com">aurorarefugio@org.com</a></p>
+        
       </div>
     </div>
   );

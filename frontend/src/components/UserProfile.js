@@ -36,33 +36,11 @@ const UserProfile = () => {
       </div>
       <div className="mt-6 space-y-4">
         <h3 className="text-lg">Cidade : {userLogged ? userLogged[0].location : 'Carregando...'}</h3>
-        <ProgressBar title="Guias Completos" percentage={75} />
-        <ProgressBar title="Conversação" percentage={25} />
-        <ProgressBar title="Conversação" percentage={25} />
-      </div>
-      <div className="mt-6">
-        <button className="block text-left mb-2">Configurações +</button>
-        <button className="block text-left">Ajuda +</button>
+
       </div>
     </div>
   );
 };
 
-const ProgressBar = ({ title, percentage }) => {
-  return (
-    <div>
-      <div className="flex justify-between">
-        <span>{title}</span>
-        <span>{percentage}%</span>
-      </div>
-      <div className="w-full bg-gray-200 h-6 rounded">
-        <div
-          className="bg-blue-500 h-6 rounded"
-          style={{ width: `${percentage}%` }}
-        ></div>
-      </div>
-    </div>
-  );
-};
 
 export default UserProfile;

@@ -10,6 +10,7 @@ import FAQ from './pages/FAQ';
 import AuthPage from './pages/auth/AuthPage';
 import Usuario from './pages/Usuario';
 import PrivateRoute from './components/PrivateRoute';
+import Footer from './components/Footer';
 
 
 const App = () => {
@@ -31,7 +32,10 @@ const App = () => {
 
       <Route path="*" element={<Navigate to="/auth" />} />
     </Routes>
+    
+    <Footer />
   </Router>
+
     )
 
 }

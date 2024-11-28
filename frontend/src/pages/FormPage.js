@@ -115,27 +115,33 @@ const FormPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <div className="flex justify-center items-center">
+      <div className="flex flex-col items-center justify-center min-h-screen">
         <div className="w-4/5 p-10">
           {!showQuestion && !completed && sections[currentSection] && (
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-semibold mb-4">{sections[currentSection].section_title}</h3>
-              <p className="mb-6">{sections[currentSection].explanation}</p>
-              <button
-                onClick={() => setShowQuestion(true)}
-                className="bg-blue-500 text-white py-2 px-4 rounded"
-              >
-                Começar Pergunta
-              </button>
+            <div className="mb-8">
+              <h3 className="text-2xl font-semibold text-left mb-8"> {/* Alinha o título à esquerda */}
+                {sections[currentSection].section_title}
+              </h3>
+              <p className="mt-4 mb-6 text-justify text-gray-700"> {/* Texto justificado */}
+                {sections[currentSection].explanation}
+              </p>
+              <div className="flex justify-center mt-10"> {/* Centraliza o botão */}
+                <button
+                  onClick={() => setShowQuestion(true)}
+                  className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded shadow-md transition-transform transform hover:scale-105"
+                >
+                  Começar Pergunta
+                </button>
+              </div>
             </div>
           )}
 
           {showQuestion && !completed && sections[currentSection] && (
             <div className="text-center p-5">
-              <h2 className="text-xl font-bold mb-4">
-                Pergunta {currentQuestion + 1}: {sections[currentSection].questions[currentQuestion].question_text}
+              <h2 className="text-left text-xl font-bold mb-4">
+                {sections[currentSection].questions[currentQuestion].question_text}
               </h2>
-              <div className="flex justify-around gap-10">
+              <div className="mt-28 flex justify-around gap-10">
                 {sections[currentSection].questions[currentQuestion].choices.map((option, index) => (
                   <div key={index} className="w-1/3">
                     <label
@@ -168,6 +174,7 @@ const FormPage = () => {
             </div>
           )}
 
+          {/* Barra de progresso */}
           <div className="mt-4">
             <div className="h-2 bg-gray-300 rounded-full">
               <div
@@ -177,22 +184,8 @@ const FormPage = () => {
             </div>
           </div>
         </div>
-
-        <div className="w-1/5 h-screen">
-          <div className="bg-white p-4 h-full">
-            <ul className="flex flex-col items-center h-full space-y-10">
-              {sections.map((section, secIndex) => (
-                <li
-                  key={secIndex}
-                  className={`font-bold ${secIndex === currentSection ? 'text-black' : 'text-gray-600'}`}
-                >
-                  Tema {secIndex + 1}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
       </div>
+
     </div>
   );
 };
