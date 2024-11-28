@@ -1,4 +1,5 @@
 import { loginUser, registerUser, getUser_id, getUserBd } from "../models/authModel.mjs";
+import { getAllGuides, getCompletedGuides_Userid} from "../models/guideModel.mjs"
 
 // CONTROLLER DE LOGIN
 export const login = async (req, res) => {
@@ -63,15 +64,15 @@ export const getUserID = async (req,res) => {
 
 //CONTROLLER DO GET GUIDES COMPLETOS USUÁRIO
 export const getCompleteGuideData = async (req, res) => {
-    const { data_id } = await getUserBd();
+    const user_id = await getUserBd();
 
     try {
         // Buscar todos os guias
-        const { dataGuides, errorGuides } = await getAllGuides();
-        if (errorGuides) throw new Error(guidesError.message);
-
+        const { data: guides, error: errorGuides } = await getAllGuides();
+        if (errorGuides) throw new Error(errorGuides.message);
+        
         // Buscar guias completados pelo usuário
-        const { data: completedGuides, error: completedGuidesError } = await getCompletedGuides_Userid(user_id);
+        const { data: completedGuides, error: completedGuidesError } = await getCompletedGuides_Userid(user_id.id);
         if (completedGuidesError) throw new Error(completedGuidesError.message);
 
         // Mapeia os IDs de guias completados

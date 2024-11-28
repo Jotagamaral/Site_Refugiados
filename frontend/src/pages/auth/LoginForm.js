@@ -43,7 +43,7 @@ const LoginForm = ({ toggleForm }) => {
 
   return (
     <form onSubmit={handleLogin}>
-      <h2 className="text-2xl font-bold mb-4 text-center">Sign In</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center">Fazer login</h2>
       <label className="block mb-2">Usuário:</label>
         <input
         type="email"
@@ -64,7 +64,7 @@ const LoginForm = ({ toggleForm }) => {
       />
 
       <button onClick={handleLogin} className="w-full bg-blue-500 text-white p-2 rounded">
-        Sign In
+        Log In
       </button>
 
       <div className="text-center mt-4">

@@ -43,7 +43,7 @@ const RegisterForm = ({ toggleForm }) => {
 
   return (
     <div className=''>
-      <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center">Registrar</h2>
       <label className="block mb-2">Usuário:</label>
       <input
         type="text"

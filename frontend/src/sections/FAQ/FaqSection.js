@@ -4,28 +4,24 @@ import FaqItem from '../../components/FaqItem';
 const FaqSection = () => {
   const faqs = [
     {
-      question: 'Pergunta frequente 1',
-      answer: 'Texto explicativo sobre a pergunta frequente. Aqui você pode adicionar informações, pontos principais ou citações.'
+      question: '1 - Como faço para acessar os guias disponíveis no site?',
+      answer: 'Para acessar os guias, basta fazer login na sua conta. Depois de logado, vá até a seção "Guias" no menu principal. Lá você encontrará uma lista com materiais organizados por tema.'
     },
     {
-      question: 'Pergunta frequente 2',
-      answer: 'Texto explicativo sobre a pergunta frequente. Aqui você pode adicionar informações, pontos principais ou citações.'
+      question: '2 - Preciso criar uma conta para usar o site?',
+      answer: 'Sim, é necessário criar uma conta para acessar algumas funcionalidades, como guias e salvar progresso. O registro é simples e rápido.'
     },
     {
-      question: 'Pergunta frequente 3',
-      answer: 'Texto explicativo sobre a pergunta frequente. Aqui você pode adicionar informações, pontos principais ou citações.'
+      question: '3- O site oferece suporte em outros idiomas?',
+      answer: 'Atualmente, a seção de guias contém a língua em inglês e espanhol para facilitar o aprendizado.'
     },
     {
-      question: 'Pergunta frequente 4',
-      answer: 'Texto explicativo sobre a pergunta frequente. Aqui você pode adicionar informações, pontos principais ou citações.'
+      question: '4- Quais ONGs são recomendadas pelo site?',
+      answer: 'Na página inicial do site, você encontra uma área dedicada às ONGs  que o Aurora Refúgio recomenda. Essas são essenciais para ampliar o suporte aos refugiados e conectar quem precisa com quem pode ajudar.'
     },
     {
-      question: 'Pergunta frequente 5',
-      answer: 'Texto explicativo sobre a pergunta frequente. Aqui você pode adicionar informações, pontos principais ou citações.'
-    },
-    {
-      question: 'Pergunta frequente 6',
-      answer: 'Texto explicativo sobre a pergunta frequente. Aqui você pode adicionar informações, pontos principais ou citações.'
+      question: '5- O que encontro na seção de notícias do site?',
+      answer: 'Na aba de notícias da página inicial, você encontra informações atualizadas e relevantes sobre refugiados, incluindo mudanças em políticas públicas, eventos de integração, oportunidades de trabalho e histórias inspiradoras. Nosso objetivo é manter a comunidade informada sobre temas importantes e atuais que impactam diretamente os refugiados.'
     }
   ];
 

@@ -54,21 +54,18 @@ const registerUser = async (email, password, name, location) => {
 };
 
 // BUSCAR USER POR USER_ID
-const getUserBd = async(res) => {
+const getUserBd = async () => {
 
     try {
-        const {data, error} = await supabase.auth.getUser();
+    const { data } = await supabase.auth.getUser();
 
-        console.log(data)
-        if (error) {
-            throw new Error(error.message);
-        }
-        return data.user;
-
+    return data.user; // Retorna apenas o objeto user
+    
     } catch (error) {
-        console.log('Error ao buscar o usuario', error)
+    console.error('Erro ao buscar o usuário', error);
     }
 };
+
 
 const getUser_id = async (User_id) => {
 

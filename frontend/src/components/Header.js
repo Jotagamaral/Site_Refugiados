@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaHome, FaQuestionCircle, FaBook, FaUser, FaSignInAlt, FaSignOutAlt, FaLanguage } from 'react-icons/fa';
+import { FaHome, FaQuestionCircle, FaBook, FaUser, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
 
 const Header = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -54,13 +54,9 @@ const Header = () => {
         <h1 className="text-4xl text-black font-bold pl-5">Aurora Refúgio</h1>
       </div>
       <nav className="nav flex items-center">
-        <button className="bg-white px-4 py-2 rounded ml-3 font-bold text-gray-700 hover:bg-gray-200 flex items-center">
-          <FaLanguage className="mr-2" />
-          Language
-        </button>
         <Link to="/" className="bg-white px-4 py-2 rounded ml-3 font-bold text-gray-700 hover:bg-gray-200 flex items-center">
           <FaHome className="mr-2" />
-          Home
+          Principal
         </Link>
         <Link to="/guia" className="bg-white px-4 py-2 rounded ml-3 font-bold text-gray-700 hover:bg-gray-200 flex items-center">
           <FaBook className="mr-2" />
@@ -101,7 +97,7 @@ const Header = () => {
                         className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left"
                       >
                         <FaSignOutAlt className="mr-2" />
-                        Log Out
+                        Sair
                       </button>
                     </li>
                   </>
@@ -113,7 +109,7 @@ const Header = () => {
                       onClick={() => setShowPopup(false)}
                     >
                       <FaSignInAlt className="mr-2" />
-                      Log In
+                      Entrar
                     </Link>
                   </li>
                 )}
