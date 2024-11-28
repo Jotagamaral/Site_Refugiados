@@ -13,7 +13,7 @@ const FaqSection = () => {
     },
     {
       question: '3- O site oferece suporte em outros idiomas?',
-      answer: 'Atualmente, a seção de guias contém a língua em inglês e espanhol para facilitar o aprendizado.'
+      answer: 'Sim, o site, atualmente, disponibiliza a seção de guias com a língua em inglês e espanhol para facilitar o aprendizado. O objetivo é garantir que a pessoa que está lendo não tenha dificuldades com as metodologias.'
     },
     {
       question: '4- Quais ONGs são recomendadas pelo site?',
