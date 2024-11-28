@@ -9,7 +9,7 @@ const FaqSection = () => {
     },
     {
       question: '2 - Preciso criar uma conta para usar o site?',
-      answer: 'Sim, é necessário criar uma conta para acessar algumas funcionalidades, como guias e salvar progresso. O registro é simples e rápido.'
+      answer: 'Não, não é necessário criar uma conta para navegar no site, porém o site contém algumas funcionalidades específicas como guias e seção de usuário, que necessitam de uma conta. O registro é simples e rápido.'
     },
     {
       question: '3- O site oferece suporte em outros idiomas?',
