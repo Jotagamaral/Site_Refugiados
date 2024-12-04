@@ -1,70 +1,102 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Aurora Refúgio
 
-## Available Scripts
+Aurora Refúgio é uma plataforma desenvolvida para apoiar refugiados localizados em Brasília e arredores. O objetivo é oferecer guias práticos, notícias relevantes e acesso a programas de apoio que facilitem a integração dos refugiados na sociedade brasileira. A aplicação prioriza acessibilidade, inclusão, suporte multilíngue e privacidade de dados.
 
-In the project directory, you can run:
+O projeto conta com um mascote especial, a cadela **Aurora**, que guia os usuários pela plataforma, promovendo uma experiência acolhedora e intuitiva.
 
-### `npm start`
+## 🚀 Principais Funcionalidades
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. **Autenticação de Usuários:**
+   - Sistema de login e registro via backend usando `authModel`.
+   - Persistência do status de login através de `localStorage`.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. **Guias e Manuais Práticos:**
+   - Guias divididos em seções com explicações e perguntas interativas.
+   - Registro de guias completados na tabela `completedGuides`, armazenando `user_id`, `guide_id`, `completed_at` e `created_at`.
 
-### `npm test`
+3. **Sistema de Questionários:**
+   - Perguntas com alternativas e feedback imediato ao usuário.
+   - Destaque da pergunta correta e progresso visual através de uma barra de progresso.
+   - Registro automático da conclusão do guia no banco de dados.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. **Notícias Relevantes:**
+   - Área dedicada a notícias sobre temas de interesse para refugiados, com foco no contexto brasileiro.
 
-### `npm run build`
+## 📚 Tecnologias Utilizadas
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Frontend:**
+   - **React.js**: Interface de usuário dinâmica e responsiva.
+   - **Tailwind CSS**: Estilização rápida e consistente.
+   - **React Router**: Gerenciamento de rotas da aplicação.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. **Backend:**
+   - **Node.js** com **Express**: API REST para comunicação com o banco de dados.
+   - **Supabase**: Banco de dados para armazenamento de dados dos usuários, guias e progresso.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📂 Estrutura do Projeto
 
-### `npm run eject`
+```
+Aurora-Refugio/
+│
+├── backend/
+│   ├── controllers/
+│   │   └── guideControllers.mjs
+│   ├── models/
+│   │   └── guideModel.mjs
+│   └── routes/
+│       └── guideRouter.mjs
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   └── Header.js
+│   │   ├── pages/
+│   │   │   └── FormPage.js
+│   │   └── App.js
+│   └── public/
+│
+└── README.md
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 📑 Alguns Endpoints da API
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Guias Disponíveis:**
+   - `GET /guides/:id/sections`
+     - Retorna as seções do guia especificado.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. **Perguntas por Seção:**
+   - `GET /guides/:section_id/questions`
+     - Retorna as perguntas da seção.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. **Registrar Guia Completo:**
+   - `POST /guides/complete`
+     - Registra a conclusão de um guia no banco de dados.
 
-## Learn More
+## 💡 Próximos Passos e Melhorias
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. **Implementar Suporte Multilíngue:**
+   - Adicionar suporte para idiomas relevantes aos refugiados.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. **Sistema de Notificações:**
+   - Notificar usuários sobre novos guias e notícias importantes.
 
-### Code Splitting
+3. **Melhorias em Acessibilidade:**
+   - Adicionar mais recursos para garantir acessibilidade total.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4. **Integração com Mais APIs:**
+   - Expandir integrações, como APIs de empregos e serviços de saúde.
 
-### Analyzing the Bundle Size
+## 📝 Como Contribuir
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Faça um fork deste repositório.
+2. Crie uma branch com sua feature: `git checkout -b feature/nome-da-feature`.
+3. Faça commit das alterações: `git commit -m 'Adiciona nova feature'`.
+4. Faça push para a branch: `git push origin feature/nome-da-feature`.
+5. Abra um Pull Request.
 
-### Making a Progressive Web App
+## 🤝 Agradecimentos
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+A todos os colaboradores e parceiros que contribuem para o sucesso do Aurora Refúgio. A missão de apoiar refugiados é coletiva, e cada contribuição faz a diferença.
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Desenvolvido por:** André Queiroz, Gabriel Henrique e João Gabriel
