@@ -1,4 +1,5 @@
 import { supabase } from '../supabaseCliente.mjs';
+import { v4 as uuidv4 } from 'uuid';
 
 // BUSCAR GUIAS
 const getAllGuides = async () => {
@@ -68,4 +69,85 @@ const getCompletedGuides_Userid = async (user_id) => {
     return { data, error };
 };
 
-export { getAllGuides,getSectionsByGuide_id, getQuestionsBySection_id, getChoicesByQuestion_id, getCompletedGuides_Userid };
+const insertCompletedGuide = async ({ user_id, guide_id, completed_at }) => {
+    try {
+        const { data, error } = await supabase
+        .schema('aurora_refugio')
+        .from('completed_guides')
+        .insert({ 
+            user_id, 
+            guide_id, 
+            completed_at, 
+            created_at: completed_at
+            });
+
+        if (error) {
+            throw new Error(`Erro ao inserir no banco de dados: ${error.message}`);
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Erro na função insertCompletedGuide:', error);
+        throw error;
+    }
+};
+
+const registerGuide = async (title, intro_text ,user_id ) => {
+
+    var UUID = uuidv4();
+
+    try {
+        const { error } = await supabase
+        .schema('aurora_refugio')
+        .from('guides_manuals_dev')
+        .insert({
+            guide_id: UUID,
+            title: title,
+            content: intro_text,
+            created_by: user_id
+        });
+
+        if (error) {
+            throw new Error(`Erro ao inserir no banco de dados: ${error.message}`);
+        }
+        return UUID;
+    } catch (error) {
+        console.error('Erro na função registerGuide:', error);
+        throw error;
+    }
+};
+
+const registerQuestion = async (guide_id, title, text, question, correct_answer, incorrect_answer_1, incorrect_answer_2) => {
+
+    console.log('Requisição de Registro de Questão');
+    
+    var UUID = uuidv4();
+
+    try {
+        const {data, error } = await supabase
+        .schema('aurora_refugio')
+        .from('questions_dev')
+        .insert({
+            question_id: UUID,
+            guide_id: guide_id,
+            enunciation_title: title,
+            enunciation_text: text,
+            question_text: question,
+            correct_answer: correct_answer,
+            incorrect_answer_1 : incorrect_answer_1,
+            incorrect_answer_2 : incorrect_answer_2,
+            
+        });
+
+        if (error) {
+            console.log('erro na criação de question na register Guide', error);
+        }
+        return{ data };
+    } catch (error) {
+        console.error('Erro na função registerQuestion:', error);
+        throw error;
+    }
+};
+
+
+export { getAllGuides,getSectionsByGuide_id, getQuestionsBySection_id, getChoicesByQuestion_id, getCompletedGuides_Userid, insertCompletedGuide , registerGuide, registerQuestion};

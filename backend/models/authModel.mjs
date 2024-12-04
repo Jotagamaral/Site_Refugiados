@@ -72,7 +72,7 @@ const getUser_id = async (User_id) => {
     const {data, error} = await supabase
     .schema('aurora_refugio')
     .from('users')
-    .select('name, email, location')
+    .select('name, email, location, user_permission')
     .eq('auth_user_id', User_id);
     
     return { data, error };

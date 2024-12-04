@@ -28,12 +28,12 @@ const LoginForm = ({ toggleForm }) => {
       } else {
         const mockToken = result.session.access_token;
         localStorage.setItem('authToken', mockToken);
+
+        const userToken = result.session.user.id
+        localStorage.setItem('user_id', userToken);
   
-        console.log('Usuário Logado com sucesso:', mockToken);
-        console.log(result.session);
-  
-        navigate('/'); // Navega para a página principal
-        window.location.reload(); // Recarrega a página para garantir atualização
+        navigate('/');
+        window.location.reload();
       }
     } catch (error) {
       alert(error.message || 'Erro ao tentar fazer login');

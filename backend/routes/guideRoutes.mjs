@@ -1,5 +1,5 @@
 import express from 'express';
-import { getGuides, getQuestions, getChoices, getSections, getCompletedGuides } from '../controllers/guideController.mjs';
+import { getGuides, getQuestions, getChoices, getSections, getCompletedGuides, setCompletedGuides, setGuide, setQuestion} from '../controllers/guideController.mjs';
 
 const router = express.Router();
 
@@ -18,5 +18,14 @@ router.get('/guides/:question_id/choices', getChoices)
 
 // GET BUSCA GUIAS COMPLETOS DO USUARIO
 router.get('/guides/:user_id', getCompletedGuides)
+
+// POST para completar um guia
+router.post('/guides/completed_guides', setCompletedGuides);
+
+// POST para criação de um novo guia
+router.post('/guides/register', setGuide);
+
+// questions para criação de um novo guia
+router.post('/guides/register/questions', setQuestion);
 
 export default router;
