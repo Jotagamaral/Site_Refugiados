@@ -54,27 +54,25 @@ const registerUser = async (email, password, name, location) => {
 };
 
 // BUSCAR USER POR USER_ID
-const getUserBd = async(res) => {
+const getUserBd = async () => {
 
     try {
-        const {data, error} = await supabase.auth.getUser();
-        
-        if (error) {
-            throw new Error(error.message);
-        }
-        return data.user;
+    const { data } = await supabase.auth.getUser();
 
+    return data.user; // Retorna apenas o objeto user
+    
     } catch (error) {
-        console.log('Error ao buscar o usuario', error)
+    console.error('Erro ao buscar o usuário', error);
     }
 };
+
 
 const getUser_id = async (User_id) => {
 
     const {data, error} = await supabase
     .schema('aurora_refugio')
     .from('users')
-    .select('name, email, location')
+    .select('name, email, location, user_permission')
     .eq('auth_user_id', User_id);
     
     return { data, error };
