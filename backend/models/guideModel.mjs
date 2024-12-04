@@ -68,4 +68,30 @@ const getCompletedGuides_Userid = async (user_id) => {
     return { data, error };
 };
 
-export { getAllGuides,getSectionsByGuide_id, getQuestionsBySection_id, getChoicesByQuestion_id, getCompletedGuides_Userid };
+const insertCompletedGuide = async ({ user_id, guide_id, completed_at }) => {
+    try {
+        const { data, error } = await supabase
+        .schema('aurora_refugio')
+        .from('completed_guides')
+        .insert({ 
+            user_id, 
+            guide_id, 
+            completed_at, 
+            created_at: completed_at
+            });
+
+        if (error) {
+            throw new Error(`Erro ao inserir no banco de dados: ${error.message}`);
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Erro na função insertCompletedGuide:', error);
+        throw error;
+    }
+};
+
+
+
+
+export { getAllGuides,getSectionsByGuide_id, getQuestionsBySection_id, getChoicesByQuestion_id, getCompletedGuides_Userid, insertCompletedGuide };

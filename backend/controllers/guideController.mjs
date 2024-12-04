@@ -1,4 +1,4 @@
-import { getAllGuides, getSectionsByGuide_id, getQuestionsBySection_id, getChoicesByQuestion_id, getCompletedGuides_Userid } from '../models/guideModel.mjs';
+import { getAllGuides, getSectionsByGuide_id, getQuestionsBySection_id, getChoicesByQuestion_id, getCompletedGuides_Userid, insertCompletedGuide } from '../models/guideModel.mjs';
 
 // CONTROLLER DE GUIAS
 export const getGuides = async (req, res) => {
@@ -75,5 +75,30 @@ export const getCompletedGuides = async (req, res) => {
         res.json(data);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar os Guias Completados' });
+    }
+};
+
+export const setCompletedGuides = async (req, res) => {
+try {
+    const { user_id, guide_id } = req.body;
+
+    // Verifica se os dados obrigatórios foram fornecidos
+    if (!user_id || !guide_id) {
+        return res.status(400).json({ error: 'user_id e guide_id são obrigatórios.' });
+    }
+
+    const completed_at = new Date().toISOString();
+
+    // Chama o modelo para inserir no banco
+    const newCompletedGuide = await insertCompletedGuide({
+        user_id,
+        guide_id,
+        completed_at,
+    });
+
+    res.status(201).json({ message: 'Guia completado com sucesso.', data: newCompletedGuide });
+    } catch (error) {
+        console.error('Erro ao registrar guia completado:', error);
+        res.status(500).json({ error: 'Erro interno no servidor.' });
     }
 };

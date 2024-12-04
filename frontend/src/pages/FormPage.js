@@ -77,37 +77,65 @@ const FormPage = () => {
     fetchData();
   }, [id]);
 
-  const handleAnswerSelect = (option) => {
-    setSelectedAnswer(option);
+  // Nova função para enviar os dados ao banco
+const completeGuide = async () => {
+  try {
+    const response = await fetch(`${config.API_URL}/guides/completed_guides`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_id: localStorage.user_id, // Troque pelo user_id do usuário autenticado
+        guide_id: id,
+      }),
+    });
 
-    if (option.choice_id === sections[currentSection].questions[currentQuestion].correct_choice_id) {
-      setIsCorrect(true);
+    if (!response.ok) {
+      throw new Error('Erro ao registrar o guia como completo.');
+    }
 
-      if (currentQuestion === sections[currentSection].questions.length - 1) {
-        if (currentSection === sections.length - 1) {
-          setCompleted(true);
-        } else {
-          setTimeout(() => {
-            setCurrentSection(currentSection + 1);
-            setCurrentQuestion(0);
-            setSelectedAnswer(null);
-            setIsCorrect(false);
-            setShowQuestion(false);
-          }, 1000);
-        }
+    const result = await response.json();
+    console.log('Guia completado com sucesso:', result);
+  } catch (error) {
+    console.error('Erro ao completar guia:', error);
+  }
+};
+
+// Atualize a lógica de handleAnswerSelect
+const handleAnswerSelect = (option) => {
+  setSelectedAnswer(option);
+
+  if (option.choice_id === sections[currentSection].questions[currentQuestion].correct_choice_id) {
+    setIsCorrect(true);
+
+    if (currentQuestion === sections[currentSection].questions.length - 1) {
+      if (currentSection === sections.length - 1) {
+        setCompleted(true);
+        completeGuide(); // Chama a função ao completar todas as questões
       } else {
         setTimeout(() => {
-          setCurrentQuestion(currentQuestion + 1);
+          setCurrentSection(currentSection + 1);
+          setCurrentQuestion(0);
           setSelectedAnswer(null);
           setIsCorrect(false);
           setShowQuestion(false);
         }, 1000);
       }
     } else {
-      setIsCorrect(false);
-      alert('Resposta incorreta. Tente novamente.');
+      setTimeout(() => {
+        setCurrentQuestion(currentQuestion + 1);
+        setSelectedAnswer(null);
+        setIsCorrect(false);
+        setShowQuestion(false);
+      }, 1000);
     }
-  };
+  } else {
+    setIsCorrect(false);
+    alert('Resposta incorreta. Tente novamente.');
+  }
+};
+
 
   if (isLoading) {
     return <div className="text-center">Carregando...</div>;
